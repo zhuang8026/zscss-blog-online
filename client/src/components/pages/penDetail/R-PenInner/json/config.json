@@ -1,0 +1,60 @@
+{
+    "header": {
+        "status": "OK"
+    },
+    "body": {
+        "pen_content": [
+            {
+                "title": "JS基本觀念：call by value 還是reference 又或是 sharing?",
+                "pen": [
+                    {
+                        "pen_title": "1. Data Type",
+                        "pen_text": {
+                            "pen_code": 0,
+                            "is_text": "首先，在javascript裡面，有許多種資料型別(data type)，但主要分兩大類，一種是原始型別(primitive type)，另一種是物件(Object)。"
+                        }
+                    },
+                    {
+                        "pen_title": "2. Primitive type",
+                        "pen_text": {
+                            "pen_code": 1,
+                            "is_text": "- Null\n- Undefined\n- Boolean\n- Number\n- BigInt\n- String\n- Symbol"
+                        }
+                    },
+                    {
+                        "pen_title": "3. Object",
+                        "pen_text": {
+                            "pen_code": 0,
+                            "is_text": "Primitive type以外的，例如array, function, map …"
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Call by value",
+                "pen": [
+                    {
+                        "pen_title": "",
+                        "pen_text": {
+                            "pen_code": 1,
+                            "is_text": "var x = 1;\nvar y = 'test';\nvar a = x;\nvar b = y;\na = 2;\nb = 'xyz';\nconsole.log(x, y, a, b)  // 1, 'test', 2, 'xyz'"
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Call by Reference === Call by Sharing",
+                "pen": [
+                    {
+                        "pen_title": "",
+                        "pen_text": {
+                            "pen_code": 1,
+                            "is_text": "var ref1 = [1];\nvar ref2 = ref1;\nref1.push(2);\nconsole.log(ref1, ref2);// [1, 2], [1, 2]\nvar personObj1 = {\nname: 'Alex',\nage: 30\n};\nvar person = personObj1;\nperson.age = 25; // 將age 賦值 25\nperson = { // 這邊person 又從新賦值了，所以 personObj2 才會和 personObj1 不一樣\nname_1: 'John_1',\nage_2: 502\n};\nvar personObj2 = person;\nconsole.log(personObj1);\nconsole.log(personObj2);",
+                            "is_Exp": "1. 當ref1被宣告時，javascript會在記憶體的某處建立一個object，並將ref1指(reference)到這個object。\n2. 接著var ref2 = ref1 這一行，就是讓ref1把相同的reference傳給ref2。\n3. 此時兩個變數都是指向同個object了，因此對這個object操作都會同時影響到ref1 & ref2。\nhttps://medium.com/@mengchiang000/js%E5%9F%BA%E6%9C%AC%E8%A7%80%E5%BF%B5-call-by-value-%E9%82%84%E6%98%AFreference-%E5%8F%88%E6%88%96%E6%98%AF-sharing-22a87ca478fc"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

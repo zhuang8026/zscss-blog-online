@@ -1,0 +1,3 @@
+{
+    "pen_content": "import React, { useState, createContext } from 'react'; \nexport const DragContext = createContext(); \nconst DragProvider = props => { \n return ( \n  <DragContext.Provider value={{ ...props}} > \n   {props.children} \n  </DragContext.Provider>\n ); \n} \nexport default DragProvider;};"
+}

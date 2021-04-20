@@ -1,0 +1,3 @@
+{
+    "pen_content": "import React, { useState, useEffect } from 'react';\nconst DragGroupV2 = ({ component }) => {\n const [isDrag, setIsDrag] = useState([]);\n return (\n  <div\n   className='dragDemo'\n   onDragOver={e => {}}\n   onDrop={e => {}}\n  >\n  {isDrag.map((data, index) => {\n   return (\n    <div\n     key={data.name}\n     onDragStart={)}\n     onDragOver={)}\n     onDrop={)}\n     draggable='true'\n     className='draggable'\n     style={{ backgroundColor: data.bgcolor }}\n    >\n     {data}\n    </div>\n   );\n  })}\n  </div>\n );\n};\nexport default DragGroupV2;"
+}

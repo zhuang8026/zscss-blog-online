@@ -1,0 +1,59 @@
+.container-drag {
+    width: 90%;
+    margin: 0 auto;
+    // text-align: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.wip {
+    // position: absolute;
+    width: 400px;
+    // height: 100vh;
+    // left: 0;
+    // top: 10;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.header {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background-color: #e0e0e0;
+    width: 100%;
+}
+
+.task-header {
+    display: inline-block;
+    background-color: #00274e;
+    width: 100%;
+}
+
+.droppable {
+    // position: absolute;
+    width: 400px;
+    // height: 100vh;
+    // right: 0;
+    // top: 10;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.draggable {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+    margin: 5px auto;
+    line-height: 100px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 24px;
+}

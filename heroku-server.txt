@@ -1,0 +1,82 @@
+heroku 一個月有免費550小時，使用使用卡可以增加450個小時，以公司 1000個小時。
+    -> 查看 剩餘時間
+        -> heroku ps -a <app name>
+            -> heroku ps -a zscss-server
+1. 環境建置
+    -> heroku 註冊
+    -> 安裝 Heroku Cli
+        -> https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up
+        -> node --version / v10.16.1
+        -> npm --version  / 6.12.0
+    -> 登入 Heroku
+        -> heroku login
+
+
+2. 創建 Git && 建立server
+    -> cd 專案資料夾
+        -> git init
+            -> git add .
+                -> git commit -m 'first commit'
+                    -> 建立server
+                        -> heroku create server名稱 (創建)
+                            -> 想改專案名字 ?
+                                --> heroku apps:rename --app [old-name] [new-name] <--
+                        -> heroku git:remote -a server名稱
+                            -> git remote -v (查看)
+
+
+3. 部署 Heroku
+    -> git push heroku master
+    -> server files package.json setting
+        ->  "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1",
+                "start": "nodemon --exec babel-node src/index.js",
+                "start:dev": "nodemon --exec babel-node src/index.js"
+            }
+    -> "NPM_CONFIG_PRODUCTION=true" 以僅安裝生產依賴項
+        -> cmd 請輸入：heroku config:set NPM_CONFIG_PRODUCTION=false 
+    -> Heroku不安裝dev依賴項
+        -> 所以才要加 "start:dev"
+3-1. 如果連結 Heroku ?
+    -> git pull heroku master
+
+4. MySQL 配置
+    -> heroku addons:create cleardb:ignite
+        ->  這部需要先登記信用卡
+        ->  得知 ClearDB 資料庫配置
+        ->  heroku config | grep CLEARDB_DATABASE_URL
+            -> GET:
+                $ heroku config | grep CLEARDB_DATABASE_URL
+                CLEARDB_DATABASE_URL:mysql://be6c96a165xxx0:c504fxxx@us-cdbr-iron-east-05.cleardb.net/heroku_e8d000339887xxx?reconnect=true
+                // 補充
+                // username: be6c96a16xxxd
+                // password: c504fxxx
+                // host: us-cdbr-iron-east-05.cleardb.net
+                // database: heroku_e8d000339887xxx
+        ->  node.js 連結DB配置
+            const pool = mysql.createPool({
+                host: "us-cdbr-iron-east-05.cleardb.net" || "localhost",
+                user: "be6c96a16xxxd" || "otis",
+                password: "c504fxxx" || "otis",
+                database: "heroku_e8d000339887xxx" || "zscss_database",
+                waitForConnections: true, // 等待连线
+                connectionLimit: 10, // 连线资料库个数设定
+                queueLimit: 0, // 无限制连线人数
+            });
+
+
+5. 查看錯誤訊息
+    -> heroku logs --tail
+
+6. 下載 MySQL Workbench (6.3.10)
+    -> https://downloads.mysql.com/archives/workbench/
+
+7. MySQL Workbench 連結 遠端資料庫
+    -> 一一對應即可
+
+8. 如何匯入資料庫？
+    -> Server tab
+        -> Data Import
+            -> import from self-contained files 並選擇要匯入的資料
+                -> Default Target Schema : 選擇資料庫名字
+                    -> click ! ( Start import )
