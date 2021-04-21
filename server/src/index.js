@@ -36,7 +36,6 @@ const cors = require("cors");
 
 const whitelist = [undefined, "http://localhost:3000", "http://localhost:3001"];
 const corsOptions = {
-  credentials: true,
   origin: function (origin, callback) {
     // 方法一
     // if (whitelist.indexOf(origin) !== -1) {
@@ -47,6 +46,9 @@ const corsOptions = {
     // 方法二
     callback(null, true); // 这样是允许全部IP使用，这样就不用 whitelist
   },
+  methods: ["GET", "POST"],
+  allowedHeaders: ["my-custom-header"],
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -80,6 +82,9 @@ app.use("/products", require(__dirname + "/products.js"));
 
 // products_detail.js
 app.use("/products_detail", require(__dirname + "/products_detail.js"));
+
+// socket.js
+// app.use("/socket", require(__dirname + "/socket.js"));
 
 // 404
 app.use((req, res) => {

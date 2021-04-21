@@ -13,7 +13,7 @@ import { AdminContext } from 'contexts/admin';
 
 import './style_module.scss';
 
-const AdminList = () => {
+const AdminList = ({ isOpen, setIsOpen }) => {
     const fetchListener = useRef(null); // fetch
     const [list, setList] = useState([]); // admin list data
     const { adminData } = useContext(AdminContext);
@@ -29,6 +29,10 @@ const AdminList = () => {
         });
     };
 
+    const chatroomfun = () => {
+        setIsOpen(!isOpen);
+    };
+
     useEffect(() => {
         getAllAdminAPICallBack();
     }, [adminData]);
@@ -39,7 +43,13 @@ const AdminList = () => {
             <ul className="card_admin">
                 {list.map((data, index) => {
                     return (
-                        <li key={index} data-name={data.nickname}>
+                        <li
+                            key={index}
+                            data-name={data.nickname}
+                            onClick={() => {
+                                chatroomfun();
+                            }}
+                        >
                             <div className="rating_admin_img">
                                 <div className="figure_icon">
                                     <img

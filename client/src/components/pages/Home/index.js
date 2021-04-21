@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // DesignSystem
 import NavTop from 'components/DesignSystem/NavTop';
@@ -14,9 +14,10 @@ import CardList from 'components/pages/Home/R-CardList';
 import './style_module.scss';
 
 const Home = () => {
+    const [isOpen, setIsOpen] = useState(true);
     return (
         <main>
-            <Chat />
+            {isOpen && <Chat isOpen={isOpen} setIsOpen={setIsOpen} />}
             <NavTop />
             <HeaderTitle />
             <div className="rating_body">
@@ -24,7 +25,7 @@ const Home = () => {
                 <div className="rating_l_card">
                     <Averge />
                     <Comments />
-                    <AdminList />
+                    <AdminList isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
 
                 {/* right container */}

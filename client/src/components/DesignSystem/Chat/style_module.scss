@@ -99,7 +99,8 @@ Messages
 .messages {
     flex: 1 1 auto;
     color: rgba(255, 255, 255, 0.5);
-    overflow: hidden;
+    // overflow: hidden;
+    overflow-x: hidden;
     position: relative;
     width: 100%;
 
@@ -128,8 +129,8 @@ Messages
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 
         .timestamp {
-            position: absolute;
-            bottom: -17px;
+            // position: absolute;
+            // bottom: -17px;
             font-size: 9px;
             color: rgba(255, 255, 255, 0.3);
         }
