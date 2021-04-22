@@ -21,10 +21,17 @@ io.on("connection", (socket) => {
   socket.on("getMessageLess", (message) => {
     socket.broadcast.emit("getMessageLess", message);
   });
+
+  //送出中斷申請時先觸發此事件
+  socket.on("disConnection", (message) => {
+    //先通知同一 room 的其他 Client
+    socket.emit("leaveRoom", `${message} 已離開聊天！`);
+    //再送訊息讓 Client 做 .close()
+    io.sockets.emit("disConnection", `${message} 已離開聊天！`);
+  });
 });
 
 //*** Start of Routes ***//
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3002");
   res.setHeader("Access-Control-Allow-Credentials", "true");
