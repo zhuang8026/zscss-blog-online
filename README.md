@@ -58,3 +58,5 @@ I am mainly sharing the learning experience of react and vue. Of course, there m
   - 20210411 - v1.3.0 - 已上線測試
     - dev - Version 1.0 - start
   - 20210421 - v1.4.0 - 開始開發 webSocket
+    - 20210422 - v1.5.0 - socket.io server 開發完成
+    - 20210423 - v1.6.0 - socket.io client 開發完成
