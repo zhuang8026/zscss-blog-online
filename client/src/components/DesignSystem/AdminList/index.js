@@ -13,7 +13,7 @@ import { AdminContext } from 'contexts/admin';
 
 import './style_module.scss';
 
-const AdminList = ({ isOpen, setIsOpen }) => {
+const AdminList = ({ isOpen, setIsOpen, openChat }) => {
     const fetchListener = useRef(null); // fetch
     const [list, setList] = useState([]); // admin list data
     const { adminData } = useContext(AdminContext);
@@ -30,7 +30,7 @@ const AdminList = ({ isOpen, setIsOpen }) => {
     };
 
     const chatroomfun = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(true);
     };
 
     useEffect(() => {
@@ -48,6 +48,7 @@ const AdminList = ({ isOpen, setIsOpen }) => {
                             data-name={data.nickname}
                             onClick={() => {
                                 chatroomfun();
+                                openChat(data.nickname, data.userimg);
                             }}
                         >
                             <div className="rating_admin_img">

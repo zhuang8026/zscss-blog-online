@@ -4,7 +4,7 @@ Mixins
 @mixin center {
     position: fixed;
     bottom: 5px;
-    right: 15px;
+    right: 60px;
     // transform: translate(-50%, -50%);
 }
 
@@ -109,7 +109,7 @@ Messages
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
+        height: auto;
         width: 100%;
         padding: 0 10px;
         .outText {

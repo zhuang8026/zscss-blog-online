@@ -1,12 +1,12 @@
 /*--------------------
 Mixins
 --------------------*/
-// @mixin center {
-//     position: fixed;
-//     bottom: 5px;
-//     right: 15px;
-//     // transform: translate(-50%, -50%);
-// }
+@mixin center {
+    position: fixed;
+    bottom: 5px;
+    right: 60px;
+    // transform: translate(-50%, -50%);
+}
 
 @mixin ball {
     // @include center;
@@ -25,15 +25,29 @@ Mixins
 /*--------------------
 Chat
 --------------------*/
-.adminChat {
-    position: fixed;
-    bottom: 5px;
-    right: 320px;
+.chat {
+    @include center;
     width: 300px;
     height: 80vh;
     max-height: 500px;
     z-index: 2;
     overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    // background: rgba(0, 0, 0, 0.5);
+    background: #000e1bc4;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.chatRoomAdmin {
+    width: 300px;
+    height: 80vh;
+    max-height: 500px;
+    z-index: 2;
+    overflow: hidden;
+    margin: 0 5px;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
     // background: rgba(0, 0, 0, 0.5);
     background: #000e1bc4;
@@ -111,7 +125,7 @@ Messages
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
+        height: auto;
         width: 100%;
         padding: 0 10px;
         .outText {

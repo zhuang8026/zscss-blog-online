@@ -99,10 +99,10 @@ const NavTop = () => {
                     {adminData.length > 0 && adminData[0].all.loginStatus ? (
                         <>
                             <div className="nav_avatar btn_left">
-                                {adminData[0].all.userimg === 'null' ? (
+                                {!adminData[0]?.all.userimg ? (
                                     <img src={require(`images/Home/null_img.png`)} alt="avatar" />
                                 ) : (
-                                    <img src={require(`images/admin/${adminData[0].all.userimg}`)} alt="avatar" />
+                                    <img src={require(`images/admin/${adminData[0]?.all.userimg}`)} alt="avatar" />
                                 )}
                             </div>
                             {/* <div className="nav_btn btn_left">{adminData[0].all.nickname}</div> */}
