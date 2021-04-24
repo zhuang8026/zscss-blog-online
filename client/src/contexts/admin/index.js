@@ -30,7 +30,7 @@ const AdminContainer = props => {
         Cookies.set('admin_scToken', res.data, { expires: 7, path: '' });
         const isAdmin = [];
         isAdmin.push({ all: JSON.parse(Cookies.get('admin_scToken')) });
-        
+
         setAdminData(isAdmin);
     };
 
@@ -54,12 +54,21 @@ const AdminContainer = props => {
         });
     };
 
-    // 錯誤訊息
+    // 提示訊息
     const openNotification = () => {
         notification.open({
             message: 'SUCCESS ! BYE~',
             description: 'Admin sign out success.',
-            icon: <SmileTwoTone style={{ color: 'yellow' }} />
+            icon: <SmileTwoTone twoToneColor="orange" />
+        });
+    };
+
+    // 管理者登入提示
+    const openAdminNotification = adminName => {
+        notification.open({
+            message: `Admin: ${adminName} is coming !`,
+            description: 'Admin sign out success.',
+            icon: <SmileTwoTone twoToneColor="#52c41a" />
         });
     };
 
@@ -103,7 +112,6 @@ const AdminContainer = props => {
 
     useEffect(() => {
         if (Cookies.get('admin_scToken') === 'undefined') {
-            console.log('111');
             unsetLoggedInMember();
         }
     }, []);
@@ -119,7 +127,9 @@ const AdminContainer = props => {
                 unsetLoggedInMember,
                 // --- 細節頁 ---
                 detailData,
-                detailPenAPIHandle
+                detailPenAPIHandle,
+                // --- 提示框 ---
+                openAdminNotification
             }}
         >
             {props.children}

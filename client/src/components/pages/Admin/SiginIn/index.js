@@ -4,6 +4,9 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import { from } from 'rxjs';
 import Cookies from 'js-cookie';
 
+// socket
+import socketIOClient from 'socket.io-client';
+
 // API
 import axios from 'axios';
 import { postAdminSignIinAPI, postUserNameCheckInAPI } from 'api/admin';
@@ -25,6 +28,9 @@ const SiginIn = ({ history }) => {
     const [isLoading, setIsLoading] = useState(false); // 載入
     const fetchListener = useRef(null); // fetch
     const { adminData, setLoggedInMember } = useContext(AdminContext);
+
+    const socketRef = useRef();
+
     // console.log(adminData);
     // 確認帳號是否存在
     const userNameCheckInCallBack = objectValue => {
@@ -32,7 +38,7 @@ const SiginIn = ({ history }) => {
             account: objectValue
         };
         fetchListener.current = from(axios(postUserNameCheckInAPI(adminData))).subscribe(res => {
-            console.log(res)
+            console.log(res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     setUsernameStatus(true);
@@ -54,17 +60,13 @@ const SiginIn = ({ history }) => {
             // console.log('postAdminSignIinAPI:', res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
-                    setTimeout(() => {
-                        setIsLoading(false);
-                        setLoggedInMember(res);
-                        history.push('/');
-                        // Cookies.set('admin_scToken', res.data, { expires: 7, path: '' });
-                    }, 2000);
+                    setIsLoading(false);
+                    setLoggedInMember(res);
+                    history.push('/');
+                    // Cookies.set('admin_scToken', res.data, { expires: 7, path: '' });
                 } else {
-                    setTimeout(() => {
-                        setIsLoading(false);
-                        openNotification();
-                    }, 2000);
+                    setIsLoading(false);
+                    openNotification();
                 }
             } else {
                 setIsLoading(false);
@@ -80,6 +82,9 @@ const SiginIn = ({ history }) => {
             icon: <FrownOutlined style={{ color: 'red' }} />
         });
     };
+
+    //  socket.io 全體通知
+    useEffect(() => {}, []);
 
     //  取消監聽
     useEffect(() => {

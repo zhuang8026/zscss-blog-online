@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+
+// socket
 import socketIOClient from 'socket.io-client';
 
 import moment from 'moment';
@@ -68,9 +70,9 @@ const useChat = roomId => {
     // 離開聊天室
     const closeChatroom = roomId => {
         // setIsOpen(false);
-        //向 Server 送出申請中斷的訊息，讓它通知其他 Client
         console.log('closeChatroom:', roomId);
 
+        // close client any chatroom
         let array = [...arrayChat]; // make a separate copy of the array
         let index = array.indexOf(roomId);
         if (index !== -1) {
@@ -78,6 +80,7 @@ const useChat = roomId => {
             setArrayChat(array);
         }
 
+        //向 Server 送出申請中斷的訊息，讓它通知其他 Client
         socketRef.current.disconnect();
     };
 

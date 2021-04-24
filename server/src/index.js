@@ -38,17 +38,17 @@ const whitelist = [undefined, "http://localhost:3000", "http://localhost:3001"];
 const corsOptions = {
   origin: function (origin, callback) {
     // 方法一
-    // if (whitelist.indexOf(origin) !== -1) {
-    //   callback(null, true);
-    // } else {
-    //   callback(null, false);
-    // }
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
     // 方法二
-    callback(null, true); // 这样是允许全部IP使用，这样就不用 whitelist
+    // callback(null, true); // 这样是允许全部IP使用，这样就不用 whitelist
   },
-  methods: ["GET", "POST"],
-  allowedHeaders: ["my-custom-header"],
-  credentials: true,
+  // methods: ["GET", "POST"],
+  // allowedHeaders: ["my-custom-header"],
+  // credentials: true,
 };
 app.use(cors(corsOptions));
 

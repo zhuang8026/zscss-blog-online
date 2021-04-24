@@ -48,7 +48,7 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
                             data-name={data.nickname}
                             onClick={() => {
                                 chatroomfun();
-                                openChat(data.nickname, data.userimg);
+                                openChat(data.sid, data.nickname, data.userimg);
                             }}
                         >
                             <div className="rating_admin_img">

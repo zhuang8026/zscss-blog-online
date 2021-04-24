@@ -37,6 +37,7 @@ router.post("/signin", upload.none(), (req, res) => {
       });
       output.loginStatus = true;
       output.state = 200;
+      output.sid = result[0].sid;
       output.nickname = result[0].nickname;
       output.userimg = result[0].userimg;
       // req.session.adminSession = result[0]; // adminSession 这是自己定义的，将result的资料赋值给 admin

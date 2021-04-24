@@ -4,9 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import momentTimezone from 'moment-timezone';
 
-// socket.io
-import io from 'socket.io-client';
-
 // ant
 import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
@@ -94,7 +91,7 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
 
     // ---- new ----
     const { messages, sendMessage, closeChatroom, arrayChat, createAdminRoom } = useChat(roomData.roomId); // Creates a websocket and manages messaging
-    const [newMessage, setNewMessage] = React.useState(''); // Message to be sent
+    const [newMessage, setNewMessage] = useState(''); // Message to be sent
 
     console.log(arrayChat);
 
