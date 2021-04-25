@@ -9,6 +9,9 @@ import axios from 'axios';
 import { postAdminSignIinAPI, postAdminSignOutAPI } from 'api/admin';
 import { detailPenAPI } from 'api/products';
 
+// DesignSystem
+import PublicOnline from 'components/DesignSystem/Socket/PublicOnline';
+
 // antd
 import { notification } from 'antd';
 import { SmileTwoTone } from '@ant-design/icons';
@@ -24,14 +27,19 @@ const AdminContainer = props => {
     const [isLoading, setIsLoading] = useState(false); // 登入專用
     const fetchListener = useRef(null); // fetch
 
+    const { publicAdmin } = PublicOnline(); // admin online
+
     // 登入
     const setLoggedInMember = res => {
         setIsLoggedIn(true);
-        Cookies.set('admin_scToken', res.data, { expires: 7, path: '' });
-        const isAdmin = [];
-        isAdmin.push({ all: JSON.parse(Cookies.get('admin_scToken')) });
+        Cookies.set('admin_token', res.data, { expires: 7, path: '' });
+        const IsAdmin = [];
+        IsAdmin.push({ all: JSON.parse(Cookies.get('admin_token')) });
 
-        setAdminData(isAdmin);
+        setAdminData(IsAdmin);
+
+        // admin 上線廣播
+        publicAdmin(res.data.nickname);
     };
 
     // 登出
@@ -45,7 +53,7 @@ const AdminContainer = props => {
                 console.log('sign out ok');
                 openNotification();
                 setIsLoggedIn(false);
-                Cookies.remove('admin_scToken', { path: '' });
+                Cookies.remove('admin_token', { path: '' });
                 const isAdmin = {
                     body: null
                 };
@@ -66,8 +74,8 @@ const AdminContainer = props => {
     // 管理者登入提示
     const openAdminNotification = adminName => {
         notification.open({
-            message: `Admin: ${adminName} is coming !`,
-            description: 'Admin sign out success.',
+            message: `Admin: ${adminName.name} is coming !`,
+            description: `${adminName.time} - Admin sign in success.`,
             icon: <SmileTwoTone twoToneColor="#52c41a" />
         });
     };

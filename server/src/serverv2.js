@@ -16,7 +16,7 @@ const USERS_CALL_ADMIN = "usersCallAdmin"; // 告訴admin有使用者使用聊�
 const USER_STATUS = ["ONLINE", "OFFLINE"];
 
 io.on("connection", (socket) => {
-  // console.log("user connected");
+  console.log("user connected");
   // console.log("roomId:", socket.handshake.query);
   // Join a conversation
   const { roomId } = socket.handshake.query;
@@ -54,9 +54,10 @@ io.on("connection", (socket) => {
   //   }
   // });
 
-  /*送出訊息，讓 “所有” 人收到回傳 client*/
+  /* 送出訊息，讓 “所有” 人收到回傳 client */
   socket.on(USERS_CALL_ADMIN, (roomId) => {
     io.sockets.emit("usersCallAdmin", roomId);
+    // socket.emit("usersCallAdmin", roomId);
   });
 
   /* admin 上線通知 */

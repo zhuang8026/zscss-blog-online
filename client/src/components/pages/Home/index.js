@@ -31,9 +31,9 @@ const Home = () => {
     const { isAdmin, publicAdmin } = PublicOnline(); // admin online
 
     // console.log 專區
-    console.log('adminData:', adminData);
-    console.log('arrayChat:', arrayChat);
-    console.log('isAdmin:', isAdmin);
+    // console.log('adminData:', adminData);
+    // console.log('arrayChat:', arrayChat);
+    // console.log('isAdmin:', isAdmin);
 
     const handleRoomNameChange = (adminId, adminName, adminImg) => {
         let createRoom = {
@@ -58,10 +58,10 @@ const Home = () => {
         }
     };
 
-    useEffect(() => {
-        let adminName = adminData[0]?.all?.nickname;
-        if (isAdminOpen) publicAdmin(adminName);
-    }, []);
+    // useEffect(() => {
+    //     let adminName = adminData[0]?.all?.nickname;
+    //     if (isAdminOpen) publicAdmin(adminName);
+    // }, []);
 
     useEffect(() => {
         if (isAdmin != '') openAdminNotification(isAdmin);

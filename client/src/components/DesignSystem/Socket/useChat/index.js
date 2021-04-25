@@ -32,7 +32,7 @@ const useChat = roomId => {
 
         // Listens for incoming messages
         socketRef.current.on(USERS_CALL_ADMIN, roomId => {
-            console.log('USERS_CALL_ADMIN:', roomId);
+            console.log('USERS_CALL_ADMIN - roomId:', roomId);
             setArrayChat(arrayChat => [...arrayChat, roomId]);
         });
 

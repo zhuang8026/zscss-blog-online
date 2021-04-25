@@ -9,18 +9,22 @@ import momentTimezone from 'moment-timezone';
 const ADMIN_ONLINE = 'adminOnline'; // admin 上線通知
 const SOCKET_SERVER_URL = 'http://localhost:3002';
 
-const PublicOnline = incoming => {
+const PublicOnline = () => {
     const [isAdmin, setIsAdmin] = useState(''); // 紀錄已上線管理者
     const socketRef = useRef();
 
     useEffect(() => {
         // Creates a WebSocket connection
-        socketRef.current = IO(SOCKET_SERVER_URL, incoming);
+        socketRef.current = IO(SOCKET_SERVER_URL);
 
         // Listens for incoming messages
         socketRef.current.on(ADMIN_ONLINE, name => {
-            console.log('ADMIN_ONLINE:', name);
-            setIsAdmin(name);
+            // console.log('ADMIN_ONLINE:', name);
+            // console.log(moment(momentTimezone().tz('Asia/Taipei').format()).format('YYYY/MM/DD HH:mm:ss'));
+            setIsAdmin({
+                name: name,
+                time: moment(momentTimezone().tz('Asia/Taipei').format()).format('YYYY/MM/DD HH:mm:ss')
+            });
         });
 
         // Destroys the socket reference
@@ -28,10 +32,11 @@ const PublicOnline = incoming => {
         return () => {
             socketRef.current.disconnect();
         };
-    }, [incoming]);
+    }, []);
 
-    const publicAdmin = name => {
-        socketRef.current.emit(ADMIN_ONLINE, name);
+    const publicAdmin = username => {
+        // console.log('publicAdmin:', username);
+        socketRef.current.emit(ADMIN_ONLINE, username);
     };
 
     // 離開聊天室

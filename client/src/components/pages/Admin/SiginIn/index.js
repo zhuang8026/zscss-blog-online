@@ -27,9 +27,8 @@ const SiginIn = ({ history }) => {
     const [check, setcheck] = useState(false); // checkbox
     const [isLoading, setIsLoading] = useState(false); // 載入
     const fetchListener = useRef(null); // fetch
-    const { adminData, setLoggedInMember } = useContext(AdminContext);
 
-    const socketRef = useRef();
+    const { adminData, setLoggedInMember } = useContext(AdminContext);
 
     // console.log(adminData);
     // 確認帳號是否存在
@@ -38,7 +37,7 @@ const SiginIn = ({ history }) => {
             account: objectValue
         };
         fetchListener.current = from(axios(postUserNameCheckInAPI(adminData))).subscribe(res => {
-            console.log(res);
+            // console.log('Check in admin :', res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     setUsernameStatus(true);
@@ -62,8 +61,8 @@ const SiginIn = ({ history }) => {
                 if (res.data.state === 200) {
                     setIsLoading(false);
                     setLoggedInMember(res);
-                    history.push('/');
-                    // Cookies.set('admin_scToken', res.data, { expires: 7, path: '' });
+                    // history.push('/');
+                    // Cookies.set('admin_token', res.data, { expires: 7, path: '' });
                 } else {
                     setIsLoading(false);
                     openNotification();
