@@ -7,7 +7,7 @@ import moment from 'moment';
 import momentTimezone from 'moment-timezone';
 
 const ADMIN_ONLINE = 'adminOnline'; // admin 上線通知
-const SOCKET_SERVER_URL = 'http://localhost:3002';
+const SOCKET_SERVER_URL = 'http://localhost:3009';
 
 const PublicOnline = () => {
     const [isAdmin, setIsAdmin] = useState(''); // 紀錄已上線管理者
