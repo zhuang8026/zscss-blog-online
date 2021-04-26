@@ -93,8 +93,6 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
     const { messages, sendMessage, closeChatroom, arrayChat, createAdminRoom } = useChat(roomData.roomId); // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = useState(''); // Message to be sent
 
-    console.log(arrayChat);
-
     const handleNewMessageChange = event => {
         setNewMessage(event.target.value);
     };
@@ -138,7 +136,7 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
                 <div className="messages">
                     <div className="messages-content" ref={chatRef}>
                         {/* loading 動畫 */}
-                        <div className="messages-container">
+                        {/* <div className="messages-container">
                             <div className="message loading new">
                                 <figure className="avatar">
                                     <img
@@ -154,7 +152,7 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
                                     <span></span>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* admin 歡迎詞 */}
                         <div className="messages-container">
@@ -181,7 +179,14 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
                                     <div className="messages-container">
                                         <div className="message new">
                                             <figure className="avatar">
-                                                <img src={require(`images/admin/user01.jpg`)} alt="頭像" />
+                                                <img
+                                                    src={require(`images/admin/${
+                                                        data.adminData.adminImg
+                                                            ? data.adminData.adminImg
+                                                            : 'null_img.png'
+                                                    }`)}
+                                                    alt="頭像"
+                                                />
                                             </figure>
                                             {data.body}
                                             <div className="timestamp">{data.time}</div>

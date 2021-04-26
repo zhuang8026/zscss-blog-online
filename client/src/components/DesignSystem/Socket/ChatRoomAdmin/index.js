@@ -16,9 +16,9 @@ import useChat from '../useChat';
 // css
 import './style_module.scss';
 
-const ChatRoomAdmin = ({ roomData }) => {
+const ChatRoomAdmin = ({ roomData, closeChatroomFun }) => {
     const chatRef = useRef();
-    const { messages, sendAdminMessage, closeChatroom } = useChat(roomData.roomId); // Creates a websocket and manages messaging
+    const { messages, sendAdminMessage } = useChat(roomData.roomId); // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = React.useState(''); // Message to be sent
 
     const handleNewMessageChange = event => {
@@ -27,7 +27,7 @@ const ChatRoomAdmin = ({ roomData }) => {
 
     // send message
     const handleSendMessage = () => {
-        sendAdminMessage(newMessage);
+        sendAdminMessage(newMessage, roomData);
         setNewMessage('');
     };
 
@@ -45,13 +45,7 @@ const ChatRoomAdmin = ({ roomData }) => {
                         <h1>{roomData.adminName}</h1>
                         <h2>room-connect: {roomData.roomId}</h2>
                     </div>
-                    <div
-                        className="chat-icon"
-                        onClick={() => {
-                            closeChatroom(roomData.roomId);
-                            // setIsOpen(false);
-                        }}
-                    >
+                    <div className="chat-icon" onClick={() => closeChatroomFun(roomData.roomId)}>
                         <CloseCircleOutlined />
                     </div>
                 </div>
@@ -60,7 +54,7 @@ const ChatRoomAdmin = ({ roomData }) => {
                 <div className="messages">
                     <div className="messages-content" ref={chatRef}>
                         {/* loading 動畫 */}
-                        <div className="messages-container">
+                        {/* <div className="messages-container">
                             <div className="message loading new">
                                 <figure className="avatar">
                                     <img
@@ -76,7 +70,7 @@ const ChatRoomAdmin = ({ roomData }) => {
                                     <span></span>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* admin 歡迎詞 */}
                         <div className="messages-container">
@@ -103,7 +97,12 @@ const ChatRoomAdmin = ({ roomData }) => {
                                     <div className="messages-container">
                                         <div className="message new">
                                             <figure className="avatar">
-                                                <img src={require(`images/admin/user01.jpg`)} alt="頭像" />
+                                                <img
+                                                    src={require(`images/admin/${
+                                                        roomData.adminImg ? roomData.adminImg : 'null_img.png'
+                                                    }`)}
+                                                    alt="頭像"
+                                                />
                                             </figure>
                                             {data.body}
                                             <div className="timestamp">{data.time}</div>

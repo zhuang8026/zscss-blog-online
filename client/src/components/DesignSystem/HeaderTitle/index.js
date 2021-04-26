@@ -15,10 +15,7 @@ const HeaderTitle = ({ penImg, title }) => {
     // const [Amtime, setAmTime] = useState();
 
     useEffect(() => {
-        setTimeout(() => {
-            setTime(moment(momentTimezone().tz('Asia/Taipei').format()).format('YYYY/MM/DD HH:mm:ss'));
-            // setAmTime(moment(momentTimezone().tz('America/Iqaluit').format()).format('YYYY/MM/DD HH:mm:ss'));
-        }, 1000);
+        setTime(moment(momentTimezone().tz('Asia/Taipei').format()).format('YYYY/MM/DD HH:mm:ss'));
     }, [time]);
 
     return (

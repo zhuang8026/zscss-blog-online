@@ -32,7 +32,7 @@ const useChat = roomId => {
 
         // Listens for incoming messages
         socketRef.current.on(USERS_CALL_ADMIN, roomId => {
-            console.log('USERS_CALL_ADMIN - roomId:', roomId);
+            console.log('USERS_CALL_ADMIN - useChat:', roomId);
             setArrayChat(arrayChat => [...arrayChat, roomId]);
         });
 
@@ -54,12 +54,13 @@ const useChat = roomId => {
         });
     };
 
-    const sendAdminMessage = messageBody => {
+    const sendAdminMessage = (messageBody, roomData) => {
         socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
+            auth: true,
             body: messageBody,
             senderId: socketRef.current.id,
             time: moment(momentTimezone().tz('Asia/Taipei').format()).format('HH:mm'),
-            auth: true
+            adminData: roomData
         });
     };
 
@@ -72,19 +73,20 @@ const useChat = roomId => {
         // setIsOpen(false);
         console.log('closeChatroom:', roomId);
 
-        // close client any chatroom
-        let array = [...arrayChat]; // make a separate copy of the array
-        let index = array.indexOf(roomId);
-        if (index !== -1) {
-            array.splice(index, 1);
-            setArrayChat(array);
-        }
+        // // close client any chatroom
+        // let array = [...arrayChat]; // make a separate copy of the array
+        // console.log(arrayChat);
+        // let index = array.indexOf(roomId);
+        // if (index !== -1) {
+        //     array.splice(index, 1);
+        //     setArrayChat(array);
+        // }
 
         //向 Server 送出申請中斷的訊息，讓它通知其他 Client
         socketRef.current.disconnect();
     };
 
-    return { messages, arrayChat, sendMessage, sendAdminMessage, closeChatroom, createAdminRoom };
+    return { messages, arrayChat, setArrayChat, sendMessage, sendAdminMessage, closeChatroom, createAdminRoom };
 };
 
 export default useChat;

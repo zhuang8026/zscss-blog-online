@@ -20,7 +20,7 @@ export const AdminContext = createContext();
 
 const AdminContainer = props => {
     // const { history, location, match } = props;
-    // const [admin, setAdmin] = useState(JSON.parse(Cookies.get('admin_scToken')));
+    // const [admin, setAdmin] = useState(JSON.parse(Cookies.get('admin_token')));
     const [adminData, setAdminData] = useState([]);
     const [detailData, setDetailData] = useState({}); // 此頁資料
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 載入專用
@@ -82,7 +82,7 @@ const AdminContainer = props => {
 
     // 登入監控
     const ListenAdminSignIn = () => {
-        let adData = Cookies.get('admin_scToken') ? JSON.parse(Cookies.get('admin_scToken')) : '';
+        let adData = Cookies.get('admin_token') ? JSON.parse(Cookies.get('admin_token')) : '';
         const signInData = {
             account: adData ? adData.body.account : '',
             password: adData ? adData.body.password : ''
@@ -91,7 +91,7 @@ const AdminContainer = props => {
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     const isAdmins = new Array();
-                    isAdmins.push({ all: JSON.parse(Cookies.get('admin_scToken')) });
+                    isAdmins.push({ all: JSON.parse(Cookies.get('admin_token')) });
                     setAdminData(isAdmins);
                 } else {
                     console.log('sign out again');
@@ -119,7 +119,7 @@ const AdminContainer = props => {
     }, []);
 
     useEffect(() => {
-        if (Cookies.get('admin_scToken') === 'undefined') {
+        if (Cookies.get('admin_token') === 'undefined') {
             unsetLoggedInMember();
         }
     }, []);

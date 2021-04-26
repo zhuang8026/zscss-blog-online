@@ -27,13 +27,11 @@ const Home = () => {
     const [roomData, setRoomData] = useState(); // create new chatroom
     const [arrUserChat, setArrUserChat] = useState([]); // 紀錄有多少聊天室
 
-    const { arrayChat } = useChat(); // Creates a websocket and manages messaging
+    const { arrayChat, setArrayChat, closeChatroom } = useChat(); // Creates a websocket and manages messaging
     const { isAdmin, publicAdmin } = PublicOnline(); // admin online
 
     // console.log 專區
     // console.log('adminData:', adminData);
-    // console.log('arrayChat:', arrayChat);
-    // console.log('isAdmin:', isAdmin);
 
     const handleRoomNameChange = (adminId, adminName, adminImg) => {
         let createRoom = {
@@ -58,6 +56,16 @@ const Home = () => {
         }
     };
 
+    const closeChatroomFun = roomId => {
+        closeChatroom(roomId);
+        // close client any chatroom
+        let array = [...arrayChat]; // make a separate copy of the array
+        let index = array.indexOf(roomId);
+        if (index !== -1) {
+            array.splice(index, 1);
+            setArrayChat(array);
+        }
+    };
     // useEffect(() => {
     //     let adminName = adminData[0]?.all?.nickname;
     //     if (isAdminOpen) publicAdmin(adminName);
@@ -81,7 +89,7 @@ const Home = () => {
                             adminName: adminData[0]?.all?.nickname,
                             adminImg: adminData[0]?.all?.userimg
                         };
-                        return <ChatRoomAdmin roomData={createRoom} />;
+                        return <ChatRoomAdmin roomData={createRoom} closeChatroomFun={closeChatroomFun} />;
                     })}
             </div>
 
