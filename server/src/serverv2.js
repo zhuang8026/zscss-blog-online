@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
   // console.log("roomId:", socket.handshake.query);
   // Join a conversation
   const { roomId } = socket.handshake.query;
-  // socket.join(roomId);
+  socket.join(roomId);
 
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {

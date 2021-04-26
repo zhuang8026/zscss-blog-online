@@ -69,7 +69,7 @@ const Home = () => {
     return (
         <main>
             {/* 路人甲 */}
-            {isOpen && <ChatRoom roomData={roomData} setIsOpen={setIsOpen} />}
+            <div className="userChatroom_body">{isOpen && <ChatRoom roomData={roomData} setIsOpen={setIsOpen} />}</div>
 
             {/* 管理員 */}
             <div className="adminChatroom_body">

@@ -82,17 +82,17 @@ main {
         }
     }
 
-    .adminChatroom_body {
-        width: 100%;
+    .adminChatroom_body,
+    .userChatroom_body {
+        width: auto;
         /* margin: 0 auto; */
         padding: 0 10px;
         height: auto;
         display: flex;
-        // justify-content: flex-end;
         flex-direction: row-reverse;
         position: fixed;
         bottom: 0;
-        left: 0;
+        right: 0;
         z-index: 999;
     }
     .rating_body {
