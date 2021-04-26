@@ -7,7 +7,6 @@ import AdminList from 'components/DesignSystem/AdminList';
 import ChatRoom from 'components/DesignSystem/Socket/ChatRoom';
 import ChatRoomAdmin from 'components/DesignSystem/Socket/ChatRoomAdmin';
 import useChat from 'components/DesignSystem/Socket/useChat';
-import PublicOnline from 'components/DesignSystem/Socket/PublicOnline';
 
 // components
 import Averge from 'components/pages/Home/L-Averge';
@@ -28,7 +27,6 @@ const Home = () => {
     const [arrUserChat, setArrUserChat] = useState([]); // 紀錄有多少聊天室
 
     const { arrayChat, setArrayChat, closeChatroom } = useChat(); // Creates a websocket and manages messaging
-    const { isAdmin, publicAdmin } = PublicOnline(); // admin online
 
     // console.log 專區
     // console.log('adminData:', adminData);
@@ -66,14 +64,7 @@ const Home = () => {
             setArrayChat(array);
         }
     };
-    // useEffect(() => {
-    //     let adminName = adminData[0]?.all?.nickname;
-    //     if (isAdminOpen) publicAdmin(adminName);
-    // }, []);
 
-    useEffect(() => {
-        if (isAdmin != '') openAdminNotification(isAdmin);
-    }, [isAdmin]);
     return (
         <main>
             {/* 路人甲 */}

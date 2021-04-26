@@ -9,6 +9,7 @@ import momentTimezone from 'moment-timezone';
 const ADMIN_ONLINE = 'adminOnline'; // admin 上線通知
 const SOCKET_SERVER_URL = 'http://localhost:3009';
 
+// 管理者上線 共用元件
 const PublicOnline = () => {
     const [isAdmin, setIsAdmin] = useState(''); // 紀錄已上線管理者
     const socketRef = useRef();
