@@ -28,9 +28,11 @@ const Home = () => {
 
     const { arrayChat, setArrayChat, closeChatroom } = useChat(); // Creates a websocket and manages messaging
 
+    console.log('arrayChat:', arrayChat);
+
     const handleRoomNameChange = (adminId, adminName, adminImg) => {
         let createRoom = {
-            roomId: getRandomMember(),
+            roomId: adminId + '-' + getRandomMember(),
             adminId: adminId,
             adminName: adminName,
             adminImg: adminImg

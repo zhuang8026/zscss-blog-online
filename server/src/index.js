@@ -117,8 +117,12 @@ io.on("connection", (socket) => {
   socket.join(roomId);
 
   // Listen for new messages
-  socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
-    io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
+  // socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
+  //   io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
+  // });
+
+  socket.on(NEW_CHAT_MESSAGE_EVENT, (msg) => {
+    io.sockets.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, msg);
   });
 
   // Leave the room if the user closes the socket
