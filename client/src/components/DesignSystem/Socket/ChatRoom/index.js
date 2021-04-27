@@ -13,13 +13,12 @@ import useChat from '../useChat';
 // css
 import './style_module.scss';
 
-const ChatRoom = ({ roomData, setIsOpen }) => {
+const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
     // const [ws, setWs] = useState(null);
     // const [isOut, setIsOut] = useState();
     // const [newMessage, setNewMessage] = useState(''); // Message to be sent
     // const [messages, setMessages] = useState([]); // Sent and received messages
     const chatRef = useRef();
-    // console.log(roomData);
     // // 連線
     // const connectWebSocket = () => {
     //     let connectionOptions = {
@@ -105,7 +104,8 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
 
     useEffect(() => {
         createAdminRoom(roomData.roomId);
-    }, []);
+    }, [roomData.roomId]);
+
     return (
         <>
             <div className="chat">
@@ -124,7 +124,8 @@ const ChatRoom = ({ roomData, setIsOpen }) => {
                     <div
                         className="chat-icon"
                         onClick={() => {
-                            closeChatroom(roomData.roomId);
+                            // closeChatroom(roomData.roomId);
+                            closeUsersChatroomFun(roomData.roomId);
                             setIsOpen(false);
                         }}
                     >

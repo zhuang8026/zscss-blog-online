@@ -32,7 +32,7 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
     const chatroomfun = data => {
         setIsOpen(true);
         // 規定 users 只能開一次聊天室
-        if (!isOpen) openChat(data.sid, data.nickname, data.userimg);
+        openChat(data.sid, data.nickname, data.userimg);
     };
 
     useEffect(() => {

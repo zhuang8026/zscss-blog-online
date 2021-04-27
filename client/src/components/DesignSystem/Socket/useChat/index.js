@@ -32,7 +32,6 @@ const useChat = roomId => {
 
         // Listens for incoming messages
         socketRef.current.on(USERS_CALL_ADMIN, roomId => {
-            console.log('USERS_CALL_ADMIN - useChat:', roomId);
             setArrayChat(arrayChat => [...arrayChat, roomId]);
         });
 
@@ -65,21 +64,21 @@ const useChat = roomId => {
     };
 
     const createAdminRoom = roomId => {
+        console.log('createAdminRoom:', roomId);
         socketRef.current.emit(USERS_CALL_ADMIN, roomId);
     };
 
     // 離開聊天室
     const closeChatroom = roomId => {
-        console.log('closeChatroom - useChat:', roomId);
+        console.log('closeChatroom:', roomId);
 
         // // close client any chatroom
-        // let array = [...arrayChat]; // make a separate copy of the array
-        // console.log(arrayChat);
-        // let index = array.indexOf(roomId);
-        // if (index !== -1) {
-        //     array.splice(index, 1);
-        //     setArrayChat(array);
-        // }
+        let array = [...arrayChat]; // make a separate copy of the array
+        let index = array.indexOf(roomId);
+        if (index !== -1) {
+            array.splice(index, 1);
+            setArrayChat(array);
+        }
 
         //向 Server 送出申請中斷的訊息，讓它通知其他 Client
         socketRef.current.disconnect();
