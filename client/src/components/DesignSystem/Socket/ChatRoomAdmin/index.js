@@ -16,7 +16,7 @@ import useChat from '../useChat';
 // css
 import './style_module.scss';
 
-const ChatRoomAdmin = ({ roomData, closeChatroomFun }) => {
+const ChatRoomAdmin = ({ roomData, closeAdminChatroomFun }) => {
     const chatRef = useRef();
     const { messages, sendAdminMessage } = useChat(roomData.roomId); // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = React.useState(''); // Message to be sent
@@ -45,7 +45,7 @@ const ChatRoomAdmin = ({ roomData, closeChatroomFun }) => {
                         <h1>{roomData.adminName}</h1>
                         <h2>room-connect: {roomData.roomId}</h2>
                     </div>
-                    <div className="chat-icon" onClick={() => closeChatroomFun(roomData.roomId)}>
+                    <div className="chat-icon" onClick={() => closeAdminChatroomFun(roomData.roomId)}>
                         <CloseCircleOutlined />
                     </div>
                 </div>

@@ -10,7 +10,7 @@ import { postAdminSignIinAPI, postAdminSignOutAPI } from 'api/admin';
 import { detailPenAPI } from 'api/products';
 
 // DesignSystem
-import PublicOnline from 'components/DesignSystem/Socket/PublicOnline';
+import WebsocketNotification from 'components/DesignSystem/Socket/WebsocketNotification';
 
 // antd
 import { notification } from 'antd';
@@ -27,7 +27,7 @@ const AdminContainer = props => {
     const [isLoading, setIsLoading] = useState(false); // 登入專用
     const fetchListener = useRef(null); // fetch
 
-    const { publicAdmin } = PublicOnline(); // admin online
+    const { publicAdmin } = WebsocketNotification(); // admin online
 
     // 登入
     const setLoggedInMember = res => {

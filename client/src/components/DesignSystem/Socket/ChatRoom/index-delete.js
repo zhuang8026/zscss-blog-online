@@ -5,7 +5,8 @@ import moment from 'moment';
 import momentTimezone from 'moment-timezone';
 
 // ant
-import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
+import { SendOutlined, CloseCircleOutlined, UserOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 // component
 import useChat from '../useChat';
@@ -14,79 +15,9 @@ import useChat from '../useChat';
 import './style_module.scss';
 
 const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
-    // const [ws, setWs] = useState(null);
-    // const [isOut, setIsOut] = useState();
-    // const [newMessage, setNewMessage] = useState(''); // Message to be sent
-    // const [messages, setMessages] = useState([]); // Sent and received messages
+    const [userData, setUserData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const chatRef = useRef();
-    // // 連線
-    // const connectWebSocket = () => {
-    //     let connectionOptions = {
-    //         'force new connection': true,
-    //         reconnectionAttempts: 'Infinity', //avoid having user reconnect manually in order to prevent dead clients after a server restart
-    //         timeout: 10000, //before connect_error and connect_timeout are emitted.
-    //         transports: ['websocket']
-    //     };
-    //     //開啟
-    //     let myws = io.connect('http://localhost:3002', connectionOptions);
-    //     setWs(myws);
-    // };
-
-    // // 監聽
-    // const initWebSocket = () => {
-    //     // 對 getMessage 設定監聽，如果 server 有透過 getMessage 傳送訊息，將會在此被捕捉
-    //     ws.on('getMessageAll', message => {
-    //         console.log('client-getMessageAll:', message);
-    //         const incomingMessage = {
-    //             ...message
-    //             // ownedByCurrentUser: message.senderId === socketRef.current.id
-    //         };
-    //         setMessages(messages => [...messages, incomingMessage]);
-    //     });
-
-    //     // 監聽 斷開連結
-    //     ws.on('disConnection', mes => {
-    //         setIsOut(mes);
-    //     });
-    // };
-
-    // // 打字文字事件
-    // const handleNewMessageChange = event => {
-    //     setNewMessage(event.target.value);
-    // };
-
-    // // 發送事件
-    // const handleSendMessage = () => {
-    //     sendMessage(newMessage);
-    //     setNewMessage('');
-    // };
-
-    // // 資料傳送到server
-    // const sendMessage = messageBody => {
-    //     // 以 emit 送訊息，並以 getMessage 為名稱送給 server 捕捉
-    //     // ws.emit('getMessageAll', message);
-    //     ws.emit('getMessageAll', {
-    //         body: messageBody,
-    //         time: moment(momentTimezone().tz('Asia/Taipei').format()).format('HH:mm'),
-    //         auth: false
-    //         // senderId: socketRef.current.id
-    //     });
-    // };
-
-    // // 連線
-    // useEffect(() => {
-    //     connectWebSocket(); // 連線
-    // }, []);
-
-    // // 監聽
-    // useEffect(() => {
-    //     if (ws) {
-    //         //連線成功在 console 中打印訊息
-    //         console.log('success connect! - client');
-    //         //設定監聽
-    //         initWebSocket();
-    //     }
-    // }, [ws]);
 
     // ---- new ----
     const { messages, sendMessage, closeChatroom, arrayChat, createAdminRoom } = useChat(roomData.roomId); // Creates a websocket and manages messaging
@@ -105,6 +36,75 @@ const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
     useEffect(() => {
         createAdminRoom(roomData);
     }, [roomData.roomId]);
+
+    // 使用者輸入身分
+    if (userData && !isLoading) {
+        return (
+            <div className="chat">
+                <div className="chat-title">
+                    <figure className="avatar">
+                        {/* <img src={require(`images/admin/user01.jpg`)} alt="頭像" /> */}
+                        <img
+                            src={require(`images/admin/${roomData.adminImg ? roomData.adminImg : 'null_img.png'}`)}
+                            alt="頭像"
+                        />
+                    </figure>
+                    <div className="chat-name">
+                        <h1>{roomData.adminName}</h1>
+                        <h2>room-connect: {roomData.roomId}</h2>
+                    </div>
+                    <div
+                        className="chat-icon"
+                        onClick={() => {
+                            // closeChatroom(roomData.roomId);
+                            closeUsersChatroomFun(roomData.roomId);
+                            setIsOpen(false);
+                        }}
+                    >
+                        <CloseCircleOutlined />
+                    </div>
+                </div>
+                {/* 聊天內容 */}
+                <div className="messages">
+                    <div className="create_users">
+                        <div className="users_avatar">
+                            <img src={require('images/admin/doge.png')} alt="users" />
+                        </div>
+                        <div className="users_inner">
+                            <div className="users_ni">
+                                <h3> Name : </h3>
+                                <Input
+                                    placeholder="what you name ?"
+                                    maxLength="5"
+                                    prefix={<UserOutlined />}
+                                    onChange={e => {
+                                        console.log(e.target.value);
+                                        setUserData({ ...userData, name: e.target.value });
+                                    }}
+                                />
+                            </div>
+                            <div className="users_ni">
+                                <h3> ID : </h3>
+                                <Input
+                                    placeholder="what you random id ?"
+                                    maxLength="5"
+                                    prefix={<ThunderboltOutlined />}
+                                    onChange={e => {
+                                        console.log(e.target.value);
+                                        setUserData({ ...userData, userId: e.target.value });
+                                    }}
+                                />
+                            </div>
+                            {/* confrim */}
+                            <div className="users_button">
+                                <button onClick={() => setIsLoading(true)}>GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>

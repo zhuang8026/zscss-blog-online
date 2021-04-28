@@ -7,7 +7,6 @@ import AdminList from 'components/DesignSystem/AdminList';
 import ChatRoom from 'components/DesignSystem/Socket/ChatRoom';
 import ChatRoomAdmin from 'components/DesignSystem/Socket/ChatRoomAdmin';
 import useChat from 'components/DesignSystem/Socket/useChat';
-import PublicOnline from 'components/DesignSystem/Socket/PublicOnline';
 
 // components
 import Averge from 'components/pages/Home/L-Averge';
@@ -25,22 +24,19 @@ const Home = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [roomData, setRoomData] = useState(); // create new chatroom
-    const [arrUserChat, setArrUserChat] = useState([]); // 紀錄有多少聊天室
+    const [arrUserChat, setArrUserChat] = useState([]); // 紀錄chatroom id / array
 
     const { arrayChat, setArrayChat, closeChatroom } = useChat(); // Creates a websocket and manages messaging
-    const { isAdmin, publicAdmin } = PublicOnline(); // admin online
 
-    // console.log 專區
-    // console.log('adminData:', adminData);
+    console.log('arrayChat:', arrayChat);
 
     const handleRoomNameChange = (adminId, adminName, adminImg) => {
         let createRoom = {
-            roomId: getRandomMember(),
+            roomId: adminId + '-' + getRandomMember(),
             adminId: adminId,
             adminName: adminName,
             adminImg: adminImg
         };
-        console.log('home-createRoom:', createRoom);
         setRoomData(createRoom);
     };
 
@@ -56,8 +52,11 @@ const Home = () => {
         }
     };
 
-    const closeChatroomFun = roomId => {
+    const closeUsersChatroomFun = roomId => {
         closeChatroom(roomId);
+    };
+
+    const closeAdminChatroomFun = roomId => {
         // close client any chatroom
         let array = [...arrayChat]; // make a separate copy of the array
         let index = array.indexOf(roomId);
@@ -66,18 +65,15 @@ const Home = () => {
             setArrayChat(array);
         }
     };
-    // useEffect(() => {
-    //     let adminName = adminData[0]?.all?.nickname;
-    //     if (isAdminOpen) publicAdmin(adminName);
-    // }, []);
 
-    useEffect(() => {
-        if (isAdmin != '') openAdminNotification(isAdmin);
-    }, [isAdmin]);
     return (
         <main>
             {/* 路人甲 */}
-            <div className="userChatroom_body">{isOpen && <ChatRoom roomData={roomData} setIsOpen={setIsOpen} />}</div>
+            <div className="userChatroom_body">
+                {isOpen && (
+                    <ChatRoom roomData={roomData} setIsOpen={setIsOpen} closeUsersChatroomFun={closeUsersChatroomFun} />
+                )}
+            </div>
 
             {/* 管理員 */}
             <div className="adminChatroom_body">
@@ -89,7 +85,7 @@ const Home = () => {
                             adminName: adminData[0]?.all?.nickname,
                             adminImg: adminData[0]?.all?.userimg
                         };
-                        return <ChatRoomAdmin roomData={createRoom} closeChatroomFun={closeChatroomFun} />;
+                        return <ChatRoomAdmin roomData={createRoom} closeAdminChatroomFun={closeAdminChatroomFun} />;
                     })}
             </div>
 

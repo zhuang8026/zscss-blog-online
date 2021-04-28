@@ -29,8 +29,10 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
         });
     };
 
-    const chatroomfun = () => {
+    const chatroomfun = data => {
         setIsOpen(true);
+        // 規定 users 只能開一次聊天室
+        openChat(data.sid, data.nickname, data.userimg);
     };
 
     useEffect(() => {
@@ -47,8 +49,7 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
                             key={index}
                             data-name={data.nickname}
                             onClick={() => {
-                                chatroomfun();
-                                openChat(data.sid, data.nickname, data.userimg);
+                                chatroomfun(data);
                             }}
                         >
                             <div className="rating_admin_img">
