@@ -15,8 +15,8 @@ import useChat from '../useChat';
 import './style_module.scss';
 
 const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
-    // const [userData, setUserData] = useState({});
-    // const [isLoading, setIsLoading] = useState(false);
+    const [userData, setUserData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const chatRef = useRef();
 
     // ---- new ----
@@ -38,73 +38,73 @@ const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
     }, [roomData.roomId]);
 
     // 使用者輸入身分
-    // if (userData && !isLoading) {
-    //     return (
-    //         <div className="chat">
-    //             <div className="chat-title">
-    //                 <figure className="avatar">
-    //                     {/* <img src={require(`images/admin/user01.jpg`)} alt="頭像" /> */}
-    //                     <img
-    //                         src={require(`images/admin/${roomData.adminImg ? roomData.adminImg : 'null_img.png'}`)}
-    //                         alt="頭像"
-    //                     />
-    //                 </figure>
-    //                 <div className="chat-name">
-    //                     <h1>{roomData.adminName}</h1>
-    //                     <h2>room-connect: {roomData.roomId}</h2>
-    //                 </div>
-    //                 <div
-    //                     className="chat-icon"
-    //                     onClick={() => {
-    //                         // closeChatroom(roomData.roomId);
-    //                         closeUsersChatroomFun(roomData.roomId);
-    //                         setIsOpen(false);
-    //                     }}
-    //                 >
-    //                     <CloseCircleOutlined />
-    //                 </div>
-    //             </div>
-    //             {/* 聊天內容 */}
-    //             <div className="messages">
-    //                 <div className="create_users">
-    //                     <div className="users_avatar">
-    //                         <img src={require('images/admin/doge.png')} alt="users" />
-    //                     </div>
-    //                     <div className="users_inner">
-    //                         <div className="users_ni">
-    //                             <h3> Name : </h3>
-    //                             <Input
-    //                                 placeholder="what you name ?"
-    //                                 maxLength="5"
-    //                                 prefix={<UserOutlined />}
-    //                                 onChange={e => {
-    //                                     console.log(e.target.value);
-    //                                     setUserData({ ...userData, name: e.target.value });
-    //                                 }}
-    //                             />
-    //                         </div>
-    //                         <div className="users_ni">
-    //                             <h3> ID : </h3>
-    //                             <Input
-    //                                 placeholder="what you random id ?"
-    //                                 maxLength="5"
-    //                                 prefix={<ThunderboltOutlined />}
-    //                                 onChange={e => {
-    //                                     console.log(e.target.value);
-    //                                     setUserData({ ...userData, userId: e.target.value });
-    //                                 }}
-    //                             />
-    //                         </div>
-    //                         {/* confrim */}
-    //                         <div className="users_button">
-    //                             <button onClick={() => setIsLoading(true)}>GO!</button>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    if (userData && !isLoading) {
+        return (
+            <div className="chat">
+                <div className="chat-title">
+                    <figure className="avatar">
+                        {/* <img src={require(`images/admin/user01.jpg`)} alt="頭像" /> */}
+                        <img
+                            src={require(`images/admin/${roomData.adminImg ? roomData.adminImg : 'null_img.png'}`)}
+                            alt="頭像"
+                        />
+                    </figure>
+                    <div className="chat-name">
+                        <h1>{roomData.adminName}</h1>
+                        <h2>room-connect: {roomData.roomId}</h2>
+                    </div>
+                    <div
+                        className="chat-icon"
+                        onClick={() => {
+                            // closeChatroom(roomData.roomId);
+                            closeUsersChatroomFun(roomData.roomId);
+                            setIsOpen(false);
+                        }}
+                    >
+                        <CloseCircleOutlined />
+                    </div>
+                </div>
+                {/* 聊天內容 */}
+                <div className="messages">
+                    <div className="create_users">
+                        <div className="users_avatar">
+                            <img src={require('images/admin/doge.png')} alt="users" />
+                        </div>
+                        <div className="users_inner">
+                            <div className="users_ni">
+                                <h3> Name : </h3>
+                                <Input
+                                    placeholder="what you name ?"
+                                    maxLength="5"
+                                    prefix={<UserOutlined />}
+                                    onChange={e => {
+                                        console.log(e.target.value);
+                                        setUserData({ ...userData, name: e.target.value });
+                                    }}
+                                />
+                            </div>
+                            <div className="users_ni">
+                                <h3> ID : </h3>
+                                <Input
+                                    placeholder="what you random id ?"
+                                    maxLength="5"
+                                    prefix={<ThunderboltOutlined />}
+                                    onChange={e => {
+                                        console.log(e.target.value);
+                                        setUserData({ ...userData, userId: e.target.value });
+                                    }}
+                                />
+                            </div>
+                            {/* confrim */}
+                            <div className="users_button">
+                                <button onClick={() => setIsLoading(true)}>GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
