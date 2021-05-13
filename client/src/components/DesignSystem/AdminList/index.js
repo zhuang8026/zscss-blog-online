@@ -49,7 +49,9 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
                             key={index}
                             data-name={data.nickname}
                             onClick={() => {
-                                chatroomfun(data);
+                                data.loginStatus
+                                    ? chatroomfun(data) // admin登入才能開啟視窗
+                                    : alert(`sorry... admin "${data.nickname}" no online`);
                             }}
                         >
                             <div className="rating_admin_img">
