@@ -1,5 +1,5 @@
-// const DOMAIN = process.env.REACT_APP_API_DOMAIN || 'http://localhost:3009';
-const DOMAIN = 'http://localhost:3009';
+const DOMAIN = process.env.REACT_APP_API_DOMAIN || 'http://localhost:3009';
+// const DOMAIN = 'http://localhost:3009';
 
 // admin sign-in s001 | admin登入 | signin 使用
 export const postAdminSignIinAPI = data => {
