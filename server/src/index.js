@@ -109,7 +109,6 @@ const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 const DIS_CONNECT = "disconnect";
 const ADMIN_ONLINE = "adminOnline"; // admin 上線通知
 const USERS_CALL_ADMIN = "usersCallAdmin"; // 告訴admin有使用者使用聊天室
-const DOMAIN = process.env.REACT_APP_API_DOMAIN || "http://localhost:3009";
 
 io.on("connection", (socket) => {
   console.log("user connected - socket");
@@ -145,7 +144,7 @@ io.on("connection", (socket) => {
 
 //*** Start of Routes ***//
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", DOMAIN);
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3009");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
