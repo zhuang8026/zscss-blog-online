@@ -17,9 +17,9 @@ import useChat from '../useChat';
 import './style_module.scss';
 
 const ChatRoomAdmin = ({ roomData, closeAdminChatroomFun }) => {
-    const chatRef = useRef();
     const { messages, sendAdminMessage } = useChat(roomData.roomId); // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = React.useState(''); // Message to be sent
+    const chatRef = useRef(null);
 
     const handleNewMessageChange = event => {
         setNewMessage(event.target.value);
@@ -30,6 +30,10 @@ const ChatRoomAdmin = ({ roomData, closeAdminChatroomFun }) => {
         sendAdminMessage(newMessage, roomData);
         setNewMessage('');
     };
+
+    useEffect(() => {
+        chatRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }, [messages]);
 
     return (
         <>

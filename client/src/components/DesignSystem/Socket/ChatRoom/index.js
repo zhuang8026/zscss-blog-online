@@ -17,21 +17,29 @@ import './style_module.scss';
 const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
     // const [userData, setUserData] = useState({});
     // const [isLoading, setIsLoading] = useState(false);
-    const chatRef = useRef();
 
     // ---- new ----
     const { messages, sendMessage, closeChatroom, arrayChat, createAdminRoom } = useChat(roomData.roomId); // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = useState(''); // Message to be sent
-    console.log('messages:', messages);
+    const divRef = useRef(null);
+
+    // console.log('messages:', messages); // all messages（array）
+
     const handleNewMessageChange = event => {
         setNewMessage(event.target.value);
     };
 
     // send message
     const handleSendMessage = () => {
-        sendMessage(roomData.roomId, newMessage);
-        setNewMessage('');
+        if (newMessage !== '' && newMessage !== '\n') {
+            sendMessage(roomData.roomId, newMessage);
+            setNewMessage('');
+        }
     };
+
+    useEffect(() => {
+        divRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }, [messages]);
 
     useEffect(() => {
         createAdminRoom(roomData);
@@ -135,7 +143,7 @@ const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
 
                 {/* 聊天內容 */}
                 <div className="messages">
-                    <div className="messages-content" ref={chatRef}>
+                    <div className="messages-content" ref={divRef}>
                         {/* loading 動畫 */}
                         {/* <div className="messages-container">
                             <div className="message loading new">
@@ -221,7 +229,10 @@ const ChatRoom = ({ roomData, setIsOpen, closeUsersChatroomFun }) => {
                         value={newMessage}
                         onChange={handleNewMessageChange}
                         onKeyDown={e => {
-                            if (e.keyCode === 13) handleSendMessage();
+                            if (e.keyCode === 13) {
+                                e.preventDefault();
+                                handleSendMessage();
+                            }
                         }}
                     ></textarea>
                     <SendOutlined className="message-submit" onClick={handleSendMessage} />
