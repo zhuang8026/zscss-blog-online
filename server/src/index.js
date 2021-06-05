@@ -58,8 +58,6 @@ const io = require("socket.io")(server, {
   cors: {
     origin: corsOptions,
     methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
   },
 }); // 請參考 https://socket.io/docs/v3/handling-cors/
 
