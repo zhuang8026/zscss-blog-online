@@ -53,7 +53,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 /* ----- socket ----- */
-const server = require("http").createServer(app);
+const server = require("http").createServer(app, (req, res) => {
+  // Set CORS headers
+  res.setHeader("Access-Control-Allow-Origin", "http://zscss.com:*");
+  res.setHeader("Access-Control-Request-Method", "*");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+});
 const io = require("socket.io")(server, {
   cors: {
     origin: corsOptions,
