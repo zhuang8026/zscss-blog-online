@@ -55,7 +55,7 @@ app.use(cors(corsOptions));
 //*** Start of Routes - CROS ***//
 app.use((req, res, next) => {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "http://zscss.com:*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
   // Request methods you wish to allow
   res.setHeader(
