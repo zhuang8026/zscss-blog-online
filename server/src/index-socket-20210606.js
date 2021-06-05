@@ -52,6 +52,17 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+/* ----- socket ----- */
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: corsOptions,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true,
+  },
+}); // 請參考 https://socket.io/docs/v3/handling-cors/
+
 app.get("/", (req, res) => {
   // req=> 请求 res => 響應
   res.send(
@@ -95,10 +106,55 @@ app.use((req, res) => {
   );
 });
 
+/* ----- socket ----- */
+const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
+const DIS_CONNECT = "disconnect";
+const ADMIN_ONLINE = "adminOnline"; // admin 上線通知
+const USERS_CALL_ADMIN = "usersCallAdmin"; // 告訴admin有使用者使用聊天室
+
+io.on("connection", (socket) => {
+  console.log("user connected - socket");
+  // Join a conversation
+  const { roomId } = socket.handshake.query;
+  socket.join(roomId);
+
+  // Listen for new messages
+  // socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
+  //   io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
+  // });
+
+  socket.on(NEW_CHAT_MESSAGE_EVENT, (msg) => {
+    io.sockets.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, msg);
+  });
+
+  // Leave the room if the user closes the socket
+  socket.on(DIS_CONNECT, () => {
+    socket.leave(roomId);
+  });
+
+  /* 送出訊息，讓 “所有” 人收到回傳 client */
+  socket.on(USERS_CALL_ADMIN, (roomId) => {
+    io.sockets.emit("usersCallAdmin", roomId);
+  });
+
+  /* admin 上線通知 */
+  socket.on(ADMIN_ONLINE, (username) => {
+    console.log("管理者已登入:", username);
+    io.sockets.emit("adminOnline", username);
+  });
+});
+
+//*** Start of Routes ***//
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3009");
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
+
 // server 侦听 3009
 const PORTS = process.env.PORT || 3009; // 符號修改
-app.listen(PORTS, () => {
+server.listen(PORTS, () => {
   console.log(
-    `server work - please use localhost:3009 or app is running on port ${PORTS} - William-server control`
+    `server work - app is running on port ${PORTS} - William-server control`
   );
 });
