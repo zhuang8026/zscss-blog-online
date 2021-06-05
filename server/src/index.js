@@ -143,8 +143,9 @@ io.on("connection", (socket) => {
 });
 
 //*** Start of Routes ***//
+const CROSPORTS = "http://zscss.com/" || "http://localhost:3009"; // 符號修改
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3009");
+  res.setHeader("Access-Control-Allow-Origin", CROSPORTS);
   res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
