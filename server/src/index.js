@@ -58,6 +58,8 @@ const io = require("socket.io")(server, {
   cors: {
     origin: corsOptions,
     methods: ["GET", "POST"],
+    // allowedHeaders: ["my-custom-header"],
+    // credentials: true,
   },
 }); // 請參考 https://socket.io/docs/v3/handling-cors/
 
@@ -151,7 +153,7 @@ io.on("connection", (socket) => {
 
 // server 侦听 3009
 const PORTS = process.env.PORT || 3009; // 符號修改
-server.listen(PORTS, () => {
+app.listen(PORTS, () => {
   console.log(
     `server work - app is running on port ${PORTS} - William-server control`
   );
