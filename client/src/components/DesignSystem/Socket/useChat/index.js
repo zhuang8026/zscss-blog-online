@@ -10,7 +10,7 @@ import momentTimezone from 'moment-timezone';
 const useChat = roomId => {
     const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'; // Name of the event
     const USERS_CALL_ADMIN = 'usersCallAdmin'; // 告訴admin有使用者使用聊天室
-    const SOCKET_SERVER_URL = 'http://localhost:3009';
+    const SOCKET_SERVER_URL = process.env.REACT_APP_API_DOMAIN || 'http://localhost:3009';
 
     const [messages, setMessages] = useState([]); // Sent and received messages
     const [arrayChat, setArrayChat] = useState([]); // 紀錄有多少聊天室

@@ -7,7 +7,7 @@ import moment from 'moment';
 import momentTimezone from 'moment-timezone';
 
 const ADMIN_ONLINE = 'adminOnline'; // admin 上線通知
-const SOCKET_SERVER_URL = 'http://localhost:3009';
+const SOCKET_SERVER_URL = process.env.REACT_APP_API_DOMAIN || 'http://localhost:3009';
 
 // 管理者上線 共用元件
 const WebsocketNotification = () => {
