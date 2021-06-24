@@ -9,6 +9,8 @@ const Animate = lazy(() => import('components/pages/Animate'));
 const SiginIn = lazy(() => import('components/pages/Admin/SiginIn'));
 const SiginUp = lazy(() => import('components/pages/Admin/SiginUp'));
 
+// 404
+const NoMatch = lazy(() => import('components/DesignSystem/NoMatch'));
 //test
 const Test = lazy(() => import('components/pages/Test'));
 
@@ -69,5 +71,12 @@ if (getBooleanFromENV('REACT_APP_IS_JAVA_OPEN', false)) {
         // }
     );
 }
+// routes.push({
+//     path: '/404',
+//     component: NoMatch,
+//     exact: false,
+//     authRequired: false,
+//     layouts: ['NavLeft']
+// });
 
 export default routes;

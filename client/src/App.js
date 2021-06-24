@@ -21,7 +21,7 @@ import { SmileTwoTone } from '@ant-design/icons';
 // import classnames from "classnames";
 import 'scss/antd.css';
 
-function App({ match, location }) {
+function App({ match, location, history }) {
     const [layouts, setLayouts] = useState([]);
     const { isAdmin } = WebsocketNotification(); // admin online
 
@@ -43,8 +43,11 @@ function App({ match, location }) {
         routes.map((route, key) => {
             let layoutPath = [];
             layoutPath.push(route.path.split('/')[1]);
+
             if (layoutPath[0].toUpperCase() === location.pathname.split('/')[1].toUpperCase()) {
                 setLayouts(route.layouts);
+            } else {
+                console.log('no fund');
             }
         });
     };
@@ -78,8 +81,10 @@ function App({ match, location }) {
 
                 <Suspense fallback={<></>}>
                     <Switch>
-                        <AdminContainer>{Routes}</AdminContainer>
-                        <Route component={NoMatch} />
+                        <AdminContainer>
+                            {Routes}
+                            <Route component={NoMatch} />
+                        </AdminContainer>
                     </Switch>
                 </Suspense>
 
