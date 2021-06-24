@@ -23,7 +23,14 @@ heroku 一個月有免費550小時，使用使用卡可以增加450個小時，�
                                 --> heroku apps:rename --app [old-name] [new-name] <--
                         -> heroku git:remote -a server名稱
                             -> git remote -v (查看)
-
+                            
+2-1. 如果已經有git倉庫
+    $ cd my-project/
+    $ git init
+    $ heroku git:remote -a zscss-client
+    $ git add .
+    $ git commit -am "make it better"
+    $ git push heroku master
 
 3. 部署 Heroku
     -> git push heroku master
