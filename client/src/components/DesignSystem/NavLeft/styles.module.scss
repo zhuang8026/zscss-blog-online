@@ -5,7 +5,7 @@ nav {
     background: #00274e;
     position: fixed;
 
-    ul {
+    .nav_ul {
         margin-top: 10px;
         li {
             position: relative;
@@ -53,4 +53,11 @@ nav {
             }
         }
     }
+}
+
+.success {
+    color: green;
+}
+.error {
+    color: red;
 }

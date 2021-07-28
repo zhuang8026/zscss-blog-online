@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import classnames from 'classnames';
 import posed from 'react-pose';
+import useSWR from 'swr';
 
 // API
 import axios from 'axios';
@@ -29,7 +30,7 @@ const ItemAnimated = posed.div({
 const CardList = ({ history }) => {
     const [contentLoad, setContentLoad] = useState(false); // 動畫控制
     const [isLoading, setIsLoading] = useState(true); // 載入
-    const [isPage, setIsPage] = useState(1); // 頁碼
+    const [isPage, setIsPage] = useState(1); // 頁碼 pageNo, setPageNo
     const [isStar, setIsStar] = useState(0); // rating 數量
     const [isData, setIsData] = useState({}); // 此頁資料
     const [isArray, setIsArray] = useState([]); // 此頁資料
@@ -38,7 +39,16 @@ const CardList = ({ history }) => {
     const { Option } = Select;
     const { Search } = Input;
 
-    // console.log('isArray:', isArray);
+    // useSWR 新寫法
+    const num1 = 1;
+    const num2 = 0;
+    const fetcher = (url, num1, num2) => fetch(url + num1 + num2).then(r => r.json());
+    const { data: william, error } = useSWR(
+        ['https://zscss-server.herokuapp.com/products/pages/', num1, num2],
+        fetcher
+        // ,{refreshInterval: 500} // 每5s call 一次 api
+    );
+    console.log('resData:', william);
 
     const handleChange = value => {
         // console.log(`selected: ${value}`);

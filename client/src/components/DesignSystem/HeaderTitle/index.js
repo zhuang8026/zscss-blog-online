@@ -12,10 +12,12 @@ const headLoading = () => {
 
 const HeaderTitle = ({ penImg, title }) => {
     const [time, setTime] = useState();
-    // const [Amtime, setAmTime] = useState();
+    // const [num, setNum] = useState(0);
 
     useEffect(() => {
-        setTime(moment(momentTimezone().tz('Asia/Taipei').format()).format('YYYY/MM/DD HH:mm:ss'));
+        setTimeout(() => {
+            setTime(moment(momentTimezone().tz('Asia/Taipei').format()).format('YYYY/MM/DD HH:mm:ss'));
+        }, 1000);
     }, [time]);
 
     return (
