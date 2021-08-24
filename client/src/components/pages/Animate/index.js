@@ -24,6 +24,8 @@ import HoverCreateElement from './HoverCreateElement';
 import GsapLoading from './GsapLoading';
 // MoveToDomAnimation
 import MoveToDomAnimation from './MoveToDomAnimation';
+// OpenYoutubeUrl
+import OpenYoutube from './OpenYoutube';
 // css
 import './style_module.scss';
 
@@ -88,6 +90,11 @@ const Animate = ({ match }) => {
             title: 'moveToDomAnimation',
             path: 'moveToDomAnimation',
             component: MoveToDomAnimation
+        },
+        {
+            title: 'Open youTube popWindow',
+            path: 'openYoutube',
+            component: OpenYoutube
         }
     ];
 

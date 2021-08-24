@@ -6,6 +6,7 @@ import NavLeft from 'components/DesignSystem/NavLeft';
 import NoMatch from 'components/DesignSystem/NoMatch';
 import Footer from 'components/DesignSystem/Footer';
 import WebsocketNotification from 'components/DesignSystem/Socket/WebsocketNotification';
+import { withFullWindowProvider, FullPopWindow } from 'components/DesignSystem/FullWindow';
 
 // contexts
 import AdminContainer from 'contexts/admin';
@@ -94,8 +95,9 @@ function App({ match, location, history }) {
                     </Suspense>
                 )}
             </Fragment>
+            <FullPopWindow />
         </div>
     );
 }
 
-export default withRouter(App);
+export default withRouter(withFullWindowProvider(App));
