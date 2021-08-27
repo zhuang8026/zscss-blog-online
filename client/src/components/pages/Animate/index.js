@@ -26,6 +26,8 @@ import GsapLoading from './GsapLoading';
 import MoveToDomAnimation from './MoveToDomAnimation';
 // OpenYoutubeUrl
 import OpenYoutube from './OpenYoutube';
+// ReduxHooks
+import ReduxHooks from './ReduxHooks';
 // css
 import './style_module.scss';
 
@@ -95,6 +97,11 @@ const Animate = ({ match }) => {
             title: 'Open youTube popWindow',
             path: 'openYoutube',
             component: OpenYoutube
+        },
+        {
+            title: 'ReduxHooks',
+            path: 'reduxHooks',
+            component: ReduxHooks
         }
     ];
 
