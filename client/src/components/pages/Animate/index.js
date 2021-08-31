@@ -27,7 +27,8 @@ import MoveToDomAnimation from './MoveToDomAnimation';
 // OpenYoutubeUrl
 import OpenYoutube from './OpenYoutube';
 // ReduxHooks
-import ReduxHooks from './ReduxHooks';
+import ReduxHooks from './ReduxHooks'; 
+import ReduxHooksTodoList from './ReduxHooksTodoList'; 
 // css
 import './style_module.scss';
 
@@ -102,6 +103,11 @@ const Animate = ({ match }) => {
             title: 'ReduxHooks',
             path: 'reduxHooks',
             component: ReduxHooks
+        },
+        {
+            title: 'ReduxHooks-TodoList',
+            path: 'reduxHooksTodoList',
+            component: ReduxHooksTodoList
         }
     ];
 
