@@ -2,18 +2,18 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 // css
-// import classes from './style_module.scss';
-// import classNames from 'classnames/bind';
-// const cx = classNames.bind(classes);
+import classes from '../style_module.scss';
+import classNames from 'classnames/bind';
+const cx = classNames.bind(classes);
 
-const Tab = ({ history, location, pathData }) => {
+const Tab = ({ match, history, location, pathData }) => {
 
     return (
-        <div className="box">
+        <div className={cx('box')}>
             {pathData.map((data, index) => {
                 return (
                     <div
-                        className="inner"
+                        className={cx('inner', data.path === match.params.param && 'tagHover')}
                         key={index}
                         onClick={() => {
                             history.push({

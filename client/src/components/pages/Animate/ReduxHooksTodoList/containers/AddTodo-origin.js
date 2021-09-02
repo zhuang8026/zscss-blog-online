@@ -1,11 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 
-let AddTodo = () => {
+// import { addTodo } from '../actions';
+
+let AddTodo = props => {
+    // const { dispatch } = props;
     let input;
     let nextTodoId = 0;
 
     const dispatch = useDispatch();
+
+    // const todos = useSelector(state => state);
+    // console.log('todos:', todos);
 
     const boundAddTodo = e => {
         e.preventDefault();
@@ -14,6 +20,8 @@ let AddTodo = () => {
         }
 
         console.log('input number:', input.value);
+
+        // dispatch(addTodo(input.value)); // action (使用者動作)
 
         dispatch({
             type: 'ADD_TODO',
@@ -38,5 +46,7 @@ let AddTodo = () => {
         </div>
     );
 };
+
+AddTodo = connect()(AddTodo); // 這裡是 重點！使用 connect 才會有 dispatch fun
 
 export default AddTodo;

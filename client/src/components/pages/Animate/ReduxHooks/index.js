@@ -8,9 +8,6 @@ import reducer from './Reducer';
 const store = createStore(reducer);
 
 const ReduxHooks = () => {
-
-
-    
     return (
         <Provider store={store}>
             <Main />

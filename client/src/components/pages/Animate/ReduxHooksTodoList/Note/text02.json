@@ -1,0 +1,3 @@
+{
+    "pen_content": "//mapStateToProps 寫法(舊的)\nimport { connect } from 'react-redux';\n\nconst mapStateToProps = (state) => {\n  return {\n    counter: state.counter\n  };\n};\nexport default connect(mapStateToProps)(App);"
+}

@@ -3,6 +3,9 @@ import Footer from './Footer';
 import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
+// components
+import Note from 'components/pages/Animate/ReduxHooksTodoList/Note';
+
 // css
 import classes from '../style.module.scss';
 import classNames from 'classnames/bind';
@@ -14,6 +17,7 @@ const App = props => {
             <AddTodo />
             <VisibleTodoList />
             <Footer />
+            <Note />
         </div>
     );
 };

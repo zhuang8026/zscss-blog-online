@@ -1,0 +1,3 @@
+{
+    "pen_content": "//hooks 寫法(推薦)\nimport React from 'react';\nimport { useStore } from 'react-redux';\n\nconst Component = ({ value }) => {\n  const store = useStore();\n  // 僅示例！不要在真正的應用程序中這樣做。\n  // 如果 store 狀態發生變化，組件將不會自動更新\n  return <div>{store.getState()}</div>\n\n};\n\nexport default Component;}"
+}

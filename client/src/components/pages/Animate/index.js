@@ -27,12 +27,13 @@ import MoveToDomAnimation from './MoveToDomAnimation';
 // OpenYoutubeUrl
 import OpenYoutube from './OpenYoutube';
 // ReduxHooks
-import ReduxHooks from './ReduxHooks'; 
-import ReduxHooksTodoList from './ReduxHooksTodoList'; 
+import ReduxHooks from './ReduxHooks';
+import ReduxHooksTodoList from './ReduxHooksTodoList';
 // css
 import './style_module.scss';
 
 const Animate = ({ match }) => {
+    console.log(match);
     const pathData = [
         {
             title: 'dndDrag',

@@ -1,0 +1,3 @@
+{
+    "pen_content": "//hooks 寫法(推薦)\nimport React, { useCallback } from 'react';\nimport { useSelector, useDispatch } from 'react-redux';\n\nconst Component = ({ value }) => {\n  const dispatch = useDispatch();\n  const list = useSelector(state => state.todolist);// 取得store中的資料\n\n  const onTodoClick = useCallback(id => dispatch({ type: 'TOGGLE_TODO', id: id }), [dispatch]);\n\nreturn (\n  <>\n    {\n      list.map( data =>(\n        <button onClick={() => onTodoClick(data.id)}>{data.val}</button>\n      ))\n    };\n  </>\n);\n\nexport default Component;"
+}

@@ -10,7 +10,6 @@ let store = createStore(todoApp);
 const ReduxHooksTodoList = () => {
     return (
         <Provider store={store}>
-            {console.log('store', store)}
             <App />
         </Provider>
     );

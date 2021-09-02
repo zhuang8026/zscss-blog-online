@@ -1,0 +1,3 @@
+{
+    "pen_content": "//mapStateToProps 寫法(舊的)\nimport { connect } from 'react-redux';\nimport TodoList from './TodoList';\n\nconst mapStateToProps = (state) => {\n  return {\n    counter: state.counter\n  };\n};\n\nconst mapStateToDispatch = (dispatch) => {\n  return {\n    todoOnclickHandle: () => dispatch({ type: 'INCREMENTHANDLER' });\n  };\n};\n\nexport default connect(mapStateToProps, mapStateToDispatch)(TodoList);// connect(state, action)(component)"
+}

@@ -1,0 +1,3 @@
+{
+    "pen_content": "const store = createStore(rootReducer);\nReactDOM.render(\n <Provider store={store}>\n  <App />\n </Provider>,\n document.getElementById('root');\n)"
+}

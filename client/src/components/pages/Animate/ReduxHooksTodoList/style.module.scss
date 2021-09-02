@@ -1,5 +1,5 @@
 .main {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     input {
         background-color: #00274e;
@@ -29,4 +29,26 @@
     .blue {
         background-color: green;
     }
+}
+
+.note {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    h2 {
+        margin: 0 auto;
+    }
+    .desc {
+        background-color: #051d35c0;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+        p {
+            font-size: 14px;
+        }
+    }
+}
+
+.impor {
+    color: red;
 }

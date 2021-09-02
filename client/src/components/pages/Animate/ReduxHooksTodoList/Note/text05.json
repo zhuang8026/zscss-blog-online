@@ -1,0 +1,3 @@
+{
+    "pen_content": "//hooks 寫法(推薦)\nimport React from 'react';\nimport { useSelector, useDispatch } from 'react-redux';\n\nconst Component = ({ value }) => {\nconst dispatch = useDispatch();\nconst list = useSelector(state => state.todolist);\n\nreturn (\n  <>\n    {\n      list.map( data =>(\n        <button onClick={() => dispatch({ type: 'ACTION_STYLE' })}>{value}</button>\n      ))\n    };\n  </>\n);\n\nexport default Component;"
+}

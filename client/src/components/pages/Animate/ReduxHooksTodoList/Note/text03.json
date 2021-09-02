@@ -1,0 +1,3 @@
+{
+    "pen_content": "//hooks 寫法(推薦)\nimport React from 'react';\nimport { useSelector } from 'react-redux';\n\nconst Component = () => {\n  const counter = useSelector(state => state.counter);\n  return <div>{counter}</div>\n}\nexport default Component;"
+}
