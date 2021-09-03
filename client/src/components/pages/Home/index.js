@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 // DesignSystem
-import NavTop from 'components/DesignSystem/NavTop';
+// import NavTop from 'components/DesignSystem/NavTop';
 import HeaderTitle from 'components/DesignSystem/HeaderTitle';
 import AdminList from 'components/DesignSystem/AdminList';
 import ChatRoom from 'components/DesignSystem/Socket/ChatRoom';
@@ -89,7 +89,7 @@ const Home = () => {
                     })}
             </div>
 
-            <NavTop />
+            {/* <NavTop /> */}
             <HeaderTitle />
             <div className="rating_body">
                 {/* left container */}

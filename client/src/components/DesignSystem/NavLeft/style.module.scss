@@ -5,6 +5,11 @@ nav {
     background: #00274e;
     position: fixed;
 
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
     .nav_ul {
         margin-top: 10px;
         li {
@@ -52,6 +57,32 @@ nav {
                 }
             }
         }
+    }
+
+    .admin {
+        border: 1px solid #fff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 28px;
+        margin-bottom: 15px;
+    }
+
+    .nav_avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid #fff;
+        background: linear-gradient(90deg, #0073e6, #0ca);
+        img {
+            width: 100%;
+        }
+    }
+
+    .btn_bottom {
+        margin-bottom: 15px;
     }
 }
 

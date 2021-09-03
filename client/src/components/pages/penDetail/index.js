@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 
 // DesignSystem
-import NavTop from 'components/DesignSystem/NavTop';
+// import NavTop from 'components/DesignSystem/NavTop';
 import HeaderTitle from 'components/DesignSystem/HeaderTitle';
 
 // components
@@ -20,7 +20,7 @@ const PenDetail = () => {
 
     return (
         <main>
-            <NavTop />
+            {/* <NavTop /> */}
             <HeaderTitle penImg={detailData.penImg} title={detailData.penTitle} />
             <div className="rating_body">
                 {/* left container */}

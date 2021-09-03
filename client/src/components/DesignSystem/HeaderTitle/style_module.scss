@@ -19,7 +19,7 @@ $shadow: rgba($yellow, 0.5);
 
 .rating_title_inner {
     width: 90%;
-    margin: 0 auto;
+    margin: 30px auto;
 
     .rating_title {
         display: flex;
@@ -29,7 +29,7 @@ $shadow: rgba($yellow, 0.5);
         h1 {
             font-size: 28px;
             font-weight: 600;
-            height: 40px;
+            // height: 40px;
         }
         // span {
         //     font-size: 28px;

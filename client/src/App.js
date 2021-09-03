@@ -7,6 +7,7 @@ import NoMatch from 'components/DesignSystem/NoMatch';
 import Footer from 'components/DesignSystem/Footer';
 import WebsocketNotification from 'components/DesignSystem/Socket/WebsocketNotification';
 import { withFullWindowProvider, FullPopWindow } from 'components/DesignSystem/FullWindow';
+import { withPopWindowProvider, PopWindow } from 'components/DesignSystem/PopWindow';
 
 // contexts
 import AdminContainer from 'contexts/admin';
@@ -82,10 +83,8 @@ function App({ match, location, history }) {
 
                 <Suspense fallback={<></>}>
                     <Switch>
-                        <AdminContainer>
-                            {Routes}
-                            <Route component={NoMatch} />
-                        </AdminContainer>
+                        {Routes}
+                        <Route component={NoMatch} />
                     </Switch>
                 </Suspense>
 
@@ -95,9 +94,18 @@ function App({ match, location, history }) {
                     </Suspense>
                 )}
             </Fragment>
+
+            {/**
+             * 可隨意添加 comment
+             */}
             <FullPopWindow />
+
+            {/**
+             * 固定 component，這是一個自定義alert
+             */}
+            <PopWindow />
         </div>
     );
 }
 
-export default withRouter(withFullWindowProvider(App));
+export default withRouter(withFullWindowProvider(withPopWindowProvider(App)));

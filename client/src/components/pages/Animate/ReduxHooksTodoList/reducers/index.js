@@ -11,7 +11,7 @@ const todoApp = combineReducers({
 export default todoApp;
 
 // combineReducers 等同與一下內容
-// combineReducers(state, action)
+// desc: combineReducers(state, action)
 // export default function todoApp(state = {}, action) {
 //     return {
 //         visibilityFilter: visibilityFilter(state.visibilityFilter, action),

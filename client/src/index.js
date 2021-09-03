@@ -6,13 +6,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './scss/_window.scss';
 import './scss/_reset.scss';
-import App from './App';
+import ProviderApp from './ProviderApp';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <React.StrictMode>
         <Router>
-            <App />
+            <ProviderApp />
         </Router>
     </React.StrictMode>,
     document.getElementById('root')

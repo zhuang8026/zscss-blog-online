@@ -10,13 +10,18 @@ import { CommentOutlined } from '@ant-design/icons';
 
 // Context
 import { AdminContext } from 'contexts/admin';
+import { popWindowStorage } from 'components/DesignSystem/PopWindow';
 
-import './style_module.scss';
+// css
+import classes from './style.module.scss';
+import classNames from 'classnames/bind';
+const cx = classNames.bind(classes);
 
 const AdminList = ({ isOpen, setIsOpen, openChat }) => {
     const fetchListener = useRef(null); // fetch
     const [list, setList] = useState([]); // admin list data
     const { adminData } = useContext(AdminContext);
+    const { openOrompt } = useContext(popWindowStorage);
 
     // admin list API (get)
     const getAllAdminAPICallBack = data => {
@@ -35,14 +40,27 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
         openChat(data.sid, data.nickname, data.userimg);
     };
 
+    const prompt = () => {
+        openOrompt({
+            state: 'info',
+            title: 'Reminder',
+            desc: 'sorry, admin is not online.',
+            button: [
+                {
+                    name: 'Close'
+                }
+            ]
+        });
+    };
+
     useEffect(() => {
         getAllAdminAPICallBack();
     }, [adminData]);
 
     return (
-        <div className="rating_card Admin">
-            <div className="card_title">Admin List</div>
-            <ul className="card_admin">
+        <div className={cx('rating_card', 'Admin')}>
+            <div className={cx('card_title')}>Admin List</div>
+            <ul className={cx('card_admin')}>
                 {list.map((data, index) => {
                     return (
                         <li
@@ -51,21 +69,21 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
                             onClick={() => {
                                 data.loginStatus
                                     ? chatroomfun(data) // admin登入才能開啟視窗
-                                    : alert(`sorry... admin "${data.nickname}" no online`);
+                                    : prompt();
                             }}
                         >
-                            <div className="rating_admin_img">
-                                <div className="figure_icon">
+                            <div className={cx('rating_admin_img')}>
+                                <div className={cx('figure_icon')}>
                                     <img
                                         src={require(`images/Home/${data.userimg ? data.userimg : 'null_img.png'}`)}
                                         alt="頭像"
                                     />
                                 </div>
                                 <p>{data.nickname}</p>
-                                <div className={`admin_online ${data.loginStatus ? 'admin_state' : ''}`} />
+                                <div className={cx(`admin_online ${data.loginStatus ? 'admin_state' : ''}`)} />
                             </div>
-                            <div className="rating_admin_icon">
-                                <CommentOutlined className="icon-chat" />
+                            <div className={cx('rating_admin_icon')}>
+                                <CommentOutlined className={cx('icon-chat')} />
                             </div>
                         </li>
                     );
