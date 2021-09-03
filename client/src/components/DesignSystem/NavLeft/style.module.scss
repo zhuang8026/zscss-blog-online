@@ -66,23 +66,69 @@ nav {
         height: 30px;
         text-align: center;
         line-height: 28px;
-        margin-bottom: 15px;
     }
 
-    .nav_avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 1px solid #fff;
-        background: linear-gradient(90deg, #0073e6, #0ca);
-        img {
-            width: 100%;
+    .admin_data {
+        position: relative;
+        // display: flex;
+        // max-width: 300px;
+        // min-width: 150px;
+        .nav_avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #fff;
+            background: linear-gradient(90deg, #0073e6, #0ca);
+
+            img {
+                width: 100%;
+            }
+        }
+        .admin_list {
+            position: absolute;
+            top: -5px;
+            left: 35px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+            &::before {
+                content: '';
+                display: block;
+                border-color: transparent #0073e6 transparent transparent;
+                border-style: solid solid solid solid;
+                border-width: 7px;
+            }
+            .btn {
+                width: 80px;
+                height: 50px;
+                background-color: #0073e6;
+                border-radius: 5px;
+                overflow: hidden;
+                p {
+                    margin: 0;
+                    padding: 0 0 0 5px;
+                    line-height: 25px;
+                    color: #fff;
+                    font-size: 12px;
+                    transition: 0.3s;
+                    cursor: default;
+
+                    &:hover {
+                        background-color: #0ca;
+                    }
+                }
+            }
+        }
+
+        &:hover .admin_list {
+            opacity: 1;
         }
     }
 
     .btn_bottom {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 }
 

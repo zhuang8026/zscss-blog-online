@@ -16,7 +16,7 @@ import classes from './style.module.scss';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(classes);
 
-const NavLeft = ({ type = 'success' }) => {
+const NavLeft = ({ type = 'success', history }) => {
     const { adminData, unsetLoggedInMember } = useContext(AdminContext);
     const { openOrompt } = useContext(popWindowStorage);
 
@@ -33,6 +33,12 @@ const NavLeft = ({ type = 'success' }) => {
                 },
                 { name: 'No' }
             ]
+        });
+    };
+
+    const goToBackend = () => {
+        history.push({
+            pathname: `/admin/backend`
         });
     };
 
@@ -77,15 +83,23 @@ const NavLeft = ({ type = 'success' }) => {
             </ul>
 
             {adminData.length > 0 && adminData[0].all.loginStatus ? (
-                <div className={cx('nav_avatar', 'btn_bottom')} onClick={() => prompt()}>
-                    {!adminData[0]?.all.userimg ? (
-                        <img src={require(`images/Home/null_img.png`)} alt="avatar" />
-                    ) : (
-                        <img src={require(`images/admin/${adminData[0]?.all.userimg}`)} alt="avatar" />
-                    )}
+                <div className={cx('admin_data')}>
+                    <div className={cx('nav_avatar', 'btn_bottom')}>
+                        {!adminData[0]?.all.userimg ? (
+                            <img src={require(`images/Home/null_img.png`)} alt="avatar" />
+                        ) : (
+                            <img src={require(`images/admin/${adminData[0]?.all.userimg}`)} alt="avatar" />
+                        )}
+                    </div>
+                    <div className={cx('admin_list')}>
+                        <div className={cx('btn')}>
+                            <p onClick={() => goToBackend()}>後台管理</p>
+                            <p onClick={() => prompt()}>登出</p>
+                        </div>
+                    </div>
                 </div>
             ) : (
-                <Link to={'/admin/sign-in'} className={cx('admin')}>
+                <Link to={'/admin/sign-in'} className={cx('admin', 'btn_bottom')}>
                     <UserOutlined style={{ fontSize: '16px', color: '#fff' }} />
                 </Link>
             )}
@@ -93,4 +107,4 @@ const NavLeft = ({ type = 'success' }) => {
     );
 };
 
-export default NavLeft;
+export default withRouter(NavLeft);

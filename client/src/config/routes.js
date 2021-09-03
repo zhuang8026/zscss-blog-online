@@ -8,9 +8,10 @@ const Animate = lazy(() => import('components/pages/Animate'));
 //admin
 const SiginIn = lazy(() => import('components/pages/Admin/SiginIn'));
 const SiginUp = lazy(() => import('components/pages/Admin/SiginUp'));
+const Backend = lazy(() => import('components/pages/Admin/Backend'));
 
 // 404
-const NoMatch = lazy(() => import('components/DesignSystem/NoMatch'));
+// const NoMatch = lazy(() => import('components/DesignSystem/NoMatch'));
 //test
 const Test = lazy(() => import('components/pages/Test'));
 
@@ -71,6 +72,15 @@ if (getBooleanFromENV('REACT_APP_IS_JAVA_OPEN', false)) {
         // }
     );
 }
+
+//------- BEGIN: 後台管理 ----------
+routes.push({
+    path: '/admin/backend',
+    component: Backend,
+    exact: true,
+    authRequired: false,
+    layouts: ['']
+});
 // routes.push({
 //     path: '/404',
 //     component: NoMatch,
