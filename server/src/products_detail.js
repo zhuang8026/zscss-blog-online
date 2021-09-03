@@ -16,7 +16,14 @@ router.get("/detail/:id", (req, res) => {
   let id = req.params.id;
   let output = {};
   let penBlock = [];
-  const sql = `SELECT PD.pId, PD.penTitle, PD.penStar, PD.penImg, PB.pen_title, PB.pen_code, PB.is_text, PD.created_at FROM penDetail AS PD INNER JOIN penBlock AS PB ON PD.penId = PB.bId WHERE penId = "${id}" ORDER BY PB.id`;
+  const sql = `
+                SELECT PD.pId, PD.penTitle, PD.penStar, PD.penImg, PB.pen_title, PB.pen_code, PB.is_text, PD.created_at 
+                FROM penDetail AS PD 
+                INNER JOIN penBlock AS PB 
+                ON PD.penId = PB.bId 
+                WHERE penId = "${id}" 
+                ORDER BY PB.id
+              `;
   db.query(sql).then((results) => {
     // console.log(results[0]);
     if (results[0].length > 0) {

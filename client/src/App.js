@@ -21,7 +21,9 @@ import { SmileTwoTone } from '@ant-design/icons';
 
 // package
 // import classnames from "classnames";
-import 'scss/antd.css';
+
+import 'antd/dist/antd.css';
+// import 'scss/antd.css';
 
 function App({ match, location, history }) {
     const [layouts, setLayouts] = useState([]);
