@@ -1,18 +1,18 @@
-const express = require("express");
-const moment = require("moment-timezone");
+const express = require('express');
+const moment = require('moment-timezone');
 // const upload = require(__dirname + '/upload-module');
-const db = require(__dirname + "/db_connect");
+const db = require(__dirname + '/db_connect');
 
 const router = express.Router();
 
 //http://localhost:3009/products/
-router.get("/", (req, res) => {
-  res.send("javascript items pages - william");
+router.get('/', (req, res) => {
+  res.send('javascript items pages - william');
 });
 
 // 星星評分
 // http://localhost:3009/products/all
-router.get("/all", (req, res) => {
+router.get('/all', (req, res) => {
   const sql = `SELECT itemId, itemStar FROM items WHERE 1`;
   db.query(sql).then((results) => {
     // console.log(results);
@@ -21,8 +21,9 @@ router.get("/all", (req, res) => {
 });
 
 // 星星評分篩選 + 資料分頁
+// list001
 // http://localhost:3009/products/pages/1/5 (Page) ~ ...
-router.get("/pages/:page?/:star?", async (req, res) => {
+router.get('/pages/:page?/:star?', async (req, res) => {
   const output = await getDataList(req);
   res.json(output);
 });
@@ -44,7 +45,7 @@ const getDataList = async (req) => {
     rows: [],
   };
 
-  const [r1] = await db.query("SELECT COUNT(1) num FROM `items`");
+  const [r1] = await db.query('SELECT COUNT(1) num FROM `penDetail`');
 
   output.totalRows = r1[0].num; // 全部資料數量
   output.totalPages = Math.ceil(output.totalRows / perPage);
@@ -57,13 +58,13 @@ const getDataList = async (req) => {
   if (!output.page) output;
 
   // const sql = `SELECT * FROM items WHERE itemsbrand=${typeBrands} LIMIT ${(page-1)*perPage}, ${perPage}`;
-  const sql = `SELECT * FROM items Where itemStar${
-    star !== 0 ? "=" + star : ""
-  } ORDER BY itemId ASC LIMIT ${(page - 1) * perPage}, ${perPage}`;
+  const sql = `SELECT * FROM penDetail Where penStar${
+    star !== 0 ? '=' + star : ''
+  } ORDER BY penId ASC LIMIT ${(page - 1) * perPage}, ${perPage}`;
 
   const [r3] = await db.query(
-    `SELECT COUNT(1) num FROM items Where itemStar${
-      star !== 0 ? "=" + star : ""
+    `SELECT COUNT(1) num FROM penDetail Where penStar${
+      star !== 0 ? '=' + star : ''
     }`
   );
 
@@ -84,8 +85,8 @@ const getDataList = async (req) => {
   }
 
   for (let i of r2) {
-    i.created_at = moment(i.created_at).format("YYYY/MM/DD HH:mm:ss");
-    i.updated_at = moment(i.updated_at).format("YYYY/MM/DD HH:mm:ss");
+    i.created_at = moment(i.created_at).format('YYYY/MM/DD HH:mm:ss');
+    i.updated_at = moment(i.updated_at).format('YYYY/MM/DD HH:mm:ss');
   }
   output.rows = r2;
 
@@ -94,9 +95,9 @@ const getDataList = async (req) => {
 
 // 全站 搜索 navbar search
 // http://localhost:3009/products/search
-router.post("/search", (req, res) => {
+router.post('/search', (req, res) => {
   let getSearch = req.body.search;
-  console.log("getSearch:", getSearch);
+  console.log('getSearch:', getSearch);
   const sql = `SELECT * FROM items WHERE itemName LIKE '%${getSearch}%' OR itemsText LIKE '%${getSearch}%'`;
   db.query(sql).then(([results]) => {
     // console.log(results);
@@ -106,11 +107,13 @@ router.post("/search", (req, res) => {
 
 // 單筆細節資料
 // http://localhost:3009/products/detail/2
-router.get("/detail/:id", (req, res) => {
+router.get('/detail/:id', (req, res) => {
   // console.log(req.params.id);
   let id = req.params.id;
   // let sql = `SELECT * FROM items WHERE itemId=${id}`;
-  let sql = "SELECT * FROM `items` AS `it` INNER JOIN `multiple_images` AS `mu` ON `it`.`itemId` = `mu`.`itemId` WHERE `it`.`itemId`=" + id;
+  let sql =
+    'SELECT * FROM `items` AS `it` INNER JOIN `multiple_images` AS `mu` ON `it`.`itemId` = `mu`.`itemId` WHERE `it`.`itemId`=' +
+    id;
   let output = {};
   db.query(sql).then((results) => {
     // if (error) throw error;
