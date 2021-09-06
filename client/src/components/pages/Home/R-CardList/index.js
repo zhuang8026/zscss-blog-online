@@ -49,7 +49,7 @@ const CardList = ({ history }) => {
         fetcher
         // ,{refreshInterval: 500} // 每5s call 一次 api
     );
-    console.log('resData:', william);
+    // console.log('resData:', william);
 
     const handleChange = value => {
         // console.log(`selected: ${value}`);

@@ -8,7 +8,7 @@ const Animate = lazy(() => import('components/pages/Animate'));
 //admin
 const SiginIn = lazy(() => import('components/pages/Admin/SiginIn'));
 const SiginUp = lazy(() => import('components/pages/Admin/SiginUp'));
-const Backend = lazy(() => import('components/pages/Admin/Backend'));
+// const Backend = lazy(() => import('components/pages/Admin/Backend'));
 
 // 404
 // const NoMatch = lazy(() => import('components/DesignSystem/NoMatch'));
@@ -55,32 +55,24 @@ const routes = [
 
 //------- BEGIN: 藉由feature flag開關routes----------
 if (getBooleanFromENV('REACT_APP_IS_JAVA_OPEN', false)) {
-    routes.push(
-        {
-            path: '/animate/:param?',
-            component: Animate,
-            exact: true,
-            authRequired: false,
-            layouts: ['NavLeft']
-        }
-        // {
-        //     path: '/java/:param',
-        //     component: Java,
-        //     exact: true,
-        //     authRequired: false,
-        //     layouts: ['NavLeft']
-        // }
-    );
+    routes.push({
+        path: '/animate/:param?',
+        component: Animate,
+        exact: true,
+        authRequired: false,
+        layouts: ['NavLeft']
+    });
 }
 
 //------- BEGIN: 後台管理 ----------
-routes.push({
-    path: '/admin/backend',
-    component: Backend,
-    exact: true,
-    authRequired: false,
-    layouts: ['']
-});
+// routes.push({
+//     path: '/admin/backend',
+//     component: Backend,
+//     exact: true,
+//     authRequired: true,
+//     layouts: ['']
+// });
+
 // routes.push({
 //     path: '/404',
 //     component: NoMatch,

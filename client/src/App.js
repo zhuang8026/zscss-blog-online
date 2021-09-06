@@ -9,11 +9,18 @@ import WebsocketNotification from 'components/DesignSystem/Socket/WebsocketNotif
 import { withFullWindowProvider, FullPopWindow } from 'components/DesignSystem/FullWindow';
 import { withPopWindowProvider, PopWindow } from 'components/DesignSystem/PopWindow';
 
-// contexts
-import AdminContainer from 'contexts/admin';
+// Context
+// import AdminContainer, { AdminContext } from 'contexts/admin';
+
+// route
+import PrivateRoute from './PrivateRoute';
 
 // config
 import routes from 'config/routes';
+import privateRoutes from 'config/privateRoutes.js';
+
+// Context
+import AdminContainer, { AdminContext } from 'contexts/admin';
 
 // antd
 import { notification } from 'antd';
@@ -29,18 +36,39 @@ function App({ match, location, history }) {
     const [layouts, setLayouts] = useState([]);
     const { isAdmin } = WebsocketNotification(); // admin online
 
+    const { adminData } = useContext(AdminContext);
+
     // all route
-    const Routes = routes.map((route, key) => (
-        <Route
-            key={`route_${key}`}
-            path={`${route.path}`}
-            exact={route.exact}
-            sensitive
-            render={() => {
-                return <route.component localeMatch={match} routeData={route} />;
-            }}
-        />
-    ));
+    const Routes = () => {
+        return routes.map((route, key) => (
+            <Route
+                key={`route_${key}`}
+                path={`${route.path}`}
+                exact={route.exact}
+                sensitive
+                render={() => {
+                    return <route.component localeMatch={match} routeData={route} />;
+                }}
+            />
+        ));
+    };
+
+    // PrivateRoute
+    const PrivateRoutes = () => {
+        if (adminData.length > 0) {
+            let authRequired = adminData[0]?.all?.loginStatus;
+            return privateRoutes.map((route, key) => (
+                <PrivateRoute
+                    path={`${route.path}`}
+                    exact={route.exact}
+                    authRequired={route.authRequired === authRequired}
+                    component={route.component}
+                />
+            ));
+        } else {
+            return <>我是 loading @@</>;
+        }
+    };
 
     // layout & url
     const getLayoutsCallBack = () => {
@@ -85,7 +113,8 @@ function App({ match, location, history }) {
 
                 <Suspense fallback={<></>}>
                     <Switch>
-                        {Routes}
+                        {Routes()}
+                        {PrivateRoutes()}
                         <Route component={NoMatch} />
                     </Switch>
                 </Suspense>
