@@ -1,5 +1,8 @@
 import React, { useState, useContext } from 'react';
 
+import { EnterOutlined } from '@ant-design/icons';
+
+// DesignSystem
 import { FullWindowAnimateStorage } from 'components/DesignSystem/FullWindow';
 
 // layout
@@ -16,19 +19,32 @@ const OpenYoutube = () => {
 
     // const [isData, setIsData] = useState();
 
-    const openVideo = () => {
+    const youtubeList = [
+        {
+            img: 'https://i.ytimg.com/vi/21qNxnCS8WU/0.jpg',
+            url: 'https://www.youtube.com/watch?v=21qNxnCS8WU'
+        },
+        {
+            img: 'https://i.ytimg.com/vi/36YnV9STBqc/0.jpg',
+            url: 'https://www.youtube.com/watch?v=36YnV9STBqc'
+        },
+        {
+            img: 'https://i.ytimg.com/vi/Dx5qFachd3A/0.jpg',
+            url: 'https://www.youtube.com/watch?v=Dx5qFachd3A'
+        }
+    ];
+
+    const openVideo = url => {
         openAnimate({
             component: (
                 <div className={cx('card')}>
-                    <div className={cx('icon')} onClick={() => closeAnimate()} />
+                    <div className={cx('icon')} onClick={() => closeAnimate()}>
+                        <EnterOutlined style={{ color: '#fff', fontSize: '30px' }} />
+                    </div>
+
                     <div className={cx('inner')}>
                         <div className={cx('video')}>
-                            <ReactPlayer
-                                url="https://www.youtube.com/watch?v=21qNxnCS8WU"
-                                controls={true}
-                                width="100%"
-                                height="100%"
-                            />
+                            <ReactPlayer url={url} controls={true} width="100%" height="100%" />
                         </div>
                     </div>
                 </div>
@@ -38,10 +54,14 @@ const OpenYoutube = () => {
 
     return (
         <>
-            <div className={cx('youtube')} onClick={() => openVideo()}>
-                <div className={cx('lsit')}>
-                    <img src="https://i.ytimg.com/vi/21qNxnCS8WU/0.jpg" />
-                </div>
+            <div className={cx('youtube')}>
+                {youtubeList.map((data, index) => {
+                    return (
+                        <div className={cx('lsit')} onClick={() => openVideo(data.url)} key={index}>
+                            <img src={data.img} />
+                        </div>
+                    );
+                })}
             </div>
         </>
     );

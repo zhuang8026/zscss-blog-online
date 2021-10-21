@@ -29,7 +29,7 @@ import { SmileTwoTone } from '@ant-design/icons';
 // package
 // import classnames from "classnames";
 
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 // import 'scss/antd.css';
 
 function App({ match, location, history }) {

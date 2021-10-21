@@ -15,32 +15,3 @@ main {
     background-size: cover;
     color: #fff;
 }
-.box {
-    width: 90%;
-    margin: 0 auto;
-    margin-bottom: 30px;
-
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    .inner {
-        width: auto;
-        height: 36px;
-        line-height: 36px;
-        text-align: center;
-        padding: 0 10px;
-        border: 1px solid #fff;
-        border-radius: 5px;
-        transition: 0.3s;
-        margin-right: 15px;
-        margin-bottom: 20px;
-        cursor: pointer;
-        &:hover {
-            background: #00274e;
-        }
-    }
-}
-
-.tagHover {
-    background: #00274e;
-}

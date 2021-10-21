@@ -2,12 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 // css
-import classes from '../style_module.scss';
+import classes from './style_module.scss';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(classes);
 
 const Tab = ({ match, history, location, pathData }) => {
-
     return (
         <div className={cx('box')}>
             {pathData.map((data, index) => {
