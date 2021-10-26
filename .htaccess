@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+RewriteRule ^ ./index.html
+
+---------- desc (以下需要刪除) ----------
+1. 可以解決 No found URL problem 
+2. 需要添加到 client 端的最外層 (和 index.html 同一層)
+3. 
