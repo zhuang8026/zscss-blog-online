@@ -8,6 +8,9 @@ import {
     CloseCircleOutlined // 關閉
 } from '@ant-design/icons';
 
+// DesignSystem
+import ButtonV1 from 'components/DesignSystem/ButtonV1';
+
 // css
 import classes from './style.module.scss';
 import classNames from 'classnames/bind';
@@ -71,7 +74,7 @@ export const PopWindow = () => {
                     close();
                 }}
             >
-                <button>{elm.name}</button>
+                <ButtonV1 name={elm.name} />
             </div>
         ));
     };

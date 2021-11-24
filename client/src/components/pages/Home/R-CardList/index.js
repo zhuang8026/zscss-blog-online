@@ -41,14 +41,14 @@ const CardList = ({ history }) => {
     const { Search } = Input;
 
     // useSWR 新寫法
-    const num1 = 1;
-    const num2 = 0;
-    const fetcher = (url, num1, num2) => fetch(url + num1 + num2).then(r => r.json());
-    const { data: william, error } = useSWR(
-        ['https://zscss-server.herokuapp.com/products/pages/', num1, num2],
-        fetcher
-        // ,{refreshInterval: 500} // 每5s call 一次 api
-    );
+    // const num1 = 1;
+    // const num2 = 0;
+    // const fetcher = (url, num1, num2) => fetch(url + num1 + num2).then(r => r.json());
+    // const { data: william, error } = useSWR(
+    //     ['https://zscss-server.herokuapp.com/products/pages/', num1, num2],
+    //     fetcher
+    //     // ,{refreshInterval: 500} // 每5s call 一次 api
+    // );
     // console.log('resData:', william);
 
     const handleChange = value => {
@@ -81,7 +81,7 @@ const CardList = ({ history }) => {
         return result;
     };
 
-    // API 獲取此頁資料
+    // product001 API 獲取此頁資料
     const productsPagesAPICallBack = () => {
         const data = {
             isPage: isPage,
@@ -90,6 +90,7 @@ const CardList = ({ history }) => {
         setIsLoading(true);
         fetchListener.current = axios(productsPagesAPI('GET', data))
             .then(res => {
+                // console.log('product001:', res);
                 if (res.status === 200) {
                     setIsLoading(false);
                     setIsData(res.data);
@@ -101,7 +102,7 @@ const CardList = ({ history }) => {
             });
     };
 
-    // API 獲取此頁資料
+    // seacrh001 API 獲取此頁資料
     const postSearchCardListAPICallBack = selectData => {
         const data = {
             search: selectData
@@ -109,7 +110,7 @@ const CardList = ({ history }) => {
         setIsLoading(true);
         fetchListener.current = axios(postSearchCardListAPI(data))
             .then(res => {
-                // console.log(res);
+                // console.log('seacrh001:', res);
                 if (res.status === 200) {
                     setIsLoading(false);
                     setIsArray(res.data);
@@ -191,11 +192,7 @@ const CardList = ({ history }) => {
                                         ref={provided.innerRef}
                                     >
                                         {isArray.map((data, index) => (
-                                            <Draggable
-                                                key={data.itemId}
-                                                draggableId={data.itemId.toString()}
-                                                index={index}
-                                            >
+                                            <Draggable key={data.pId} draggableId={data.pId.toString()} index={index}>
                                                 {(provided, snapshot) => (
                                                     <div
                                                         ref={provided.innerRef}
@@ -209,13 +206,13 @@ const CardList = ({ history }) => {
                                                         <ItemAnimated pose={contentLoad ? 'visible' : 'hidden'}>
                                                             <div
                                                                 className="r_list"
-                                                                key={data.itemId}
+                                                                key={data.pId}
                                                                 ref={btnElement}
                                                                 index={index}
                                                             >
                                                                 <div
                                                                     className="r_list_hover"
-                                                                    id={data.itemId}
+                                                                    id={data.pId}
                                                                     onClick={e => {
                                                                         history.push(`/pen-detail/${data.penId}`);
                                                                     }}
@@ -226,7 +223,7 @@ const CardList = ({ history }) => {
                                                                             <div className="r_list_head">
                                                                                 <div className="figure_icon">
                                                                                     <img
-                                                                                        src={require(`images/pen/${data.itemImg}`)}
+                                                                                        src={require(`images/pen/${data.penImg}`)}
                                                                                         alt="頭像"
                                                                                     />
                                                                                 </div>
@@ -234,7 +231,7 @@ const CardList = ({ history }) => {
                                                                             <div className="r_list_content">
                                                                                 <h2 className="right_list_title">
                                                                                     {' '}
-                                                                                    {data.itemName}{' '}
+                                                                                    {data.penTitle}{' '}
                                                                                 </h2>
                                                                                 <p>{data.updated_at}</p>
                                                                             </div>
@@ -248,8 +245,8 @@ const CardList = ({ history }) => {
                                                                             <Rate
                                                                                 disabled
                                                                                 allowHalf
-                                                                                defaultValue={data.itemStar}
-                                                                                value={data.itemStar}
+                                                                                defaultValue={data.penStar}
+                                                                                value={data.penStar}
                                                                             />
                                                                         </div>
                                                                         {/* 20201219 - 暫時隱藏 */}

@@ -10,7 +10,7 @@ const privateRoutes = [
         component: Backend,
         exact: true,
         authRequired: true,
-        layouts: ['']
+        layouts: ['NavLeft']
     }
 ];
 

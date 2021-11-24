@@ -1,0 +1,37 @@
+.backend {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../../../../images/Home/1.jpg'); // images/Home/1.jpg
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    color: #fff !important;
+
+    .body {
+        position: absolute;
+        top: 0px;
+        left: 90px;
+        width: calc(100% - 90px);
+        height: 100%;
+        z-index: 200;
+        display: block;
+        overflow-y: auto;
+        overflow-x: hidden;
+        // background: url(/static/media/1.6d2e8158.jpg) center center no-repeat;
+        background-size: cover;
+        color: #fff;
+    }
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(11, 65, 96, 1) inset !important;
+    -webkit-text-fill-color: #fff !important;
+}
