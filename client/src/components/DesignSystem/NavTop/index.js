@@ -11,7 +11,7 @@ import { AdminContext } from 'contexts/admin';
 
 import './style_module.scss';
 
-const NavTop = () => {
+const NavTop = ({ openCreate }) => {
     const [list, setList] = useState([]); // admin list data
     const { adminData, unsetLoggedInMember } = useContext(AdminContext);
     const fetchListener = useRef(null); // fetch
@@ -19,6 +19,13 @@ const NavTop = () => {
 
     // console.log 專區
     // console.log('adminData:', adminData);
+
+    const createAction = () => {
+        openCreate && openCreate();
+    };
+    const searchAction = () => {
+        console.log('search start');
+    };
 
     // admin list API (get)
     const getAllAdminAPICallBack = data => {
@@ -134,8 +141,12 @@ const NavTop = () => {
                 </li>
                 {adminData.length > 0 && adminData[0].all.loginStatus ? (
                     <li>
-                        <div className="nav_btn btn_right">新增</div>
-                        <div className="nav_btn btn_right">查詢</div>
+                        <div className="nav_btn btn_right" onClick={() => createAction()}>
+                            新增
+                        </div>
+                        <div className="nav_btn btn_right" onClick={() => searchAction()}>
+                            查詢
+                        </div>
                     </li>
                 ) : (
                     <></>

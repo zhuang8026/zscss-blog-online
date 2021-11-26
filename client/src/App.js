@@ -79,7 +79,7 @@ function App({ match, location, history }) {
             if (layoutPath[0].toUpperCase() === location.pathname.split('/')[1].toUpperCase()) {
                 setLayouts(route.layouts);
             } else {
-                console.log('no fund');
+                // console.log('no fund');
             }
         });
     };

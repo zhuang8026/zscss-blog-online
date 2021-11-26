@@ -2,6 +2,17 @@
 const DOMAIN = 'http://localhost:3009';
 
 // product001 獲取分頁資料
+export const productsAllpensAPI = () => {
+    return {
+        method: 'GET',
+        baseURL: DOMAIN, // window.location.origin
+        url: `products/allpens`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    };
+};
+
+// product001 獲取分頁資料
 export const productsPagesAPI = (method, data) => {
     return {
         method: method,
@@ -15,7 +26,7 @@ export const productsPagesAPI = (method, data) => {
 // taring001 星星評分
 export const ratingAllAPI = method => {
     return {
-        method: method,
+        method: 'GET',
         baseURL: DOMAIN,
         url: `products/all`,
         Accept: 'application/json',

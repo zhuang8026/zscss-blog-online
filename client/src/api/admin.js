@@ -50,3 +50,16 @@ export const getAllAdminAPI = () => {
         'Content-Type': 'application/json'
     };
 };
+
+// backend 後台管理使用 | backend001
+export const postBackendCreateAPI = data => {
+    // console.log(data);
+    return {
+        method: 'POST',
+        baseURL: DOMAIN,
+        url: `admin/backend-create`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        data: data
+    };
+};

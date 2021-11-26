@@ -9,7 +9,6 @@ export const withFullWindowProvider = WrappedComponent => {
         const [animateObj, setAnimateObj] = useState(null);
 
         const openAnimate = obj => {
-            console.log('here');
             setAnimateObj(obj);
         };
 

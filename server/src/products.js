@@ -28,6 +28,28 @@ router.get('/pages/:page?/:star?', async (req, res) => {
   res.json(output);
 });
 
+// 取得全部資料 | allpens001
+// http://localhost:3009/products/allpens
+router.get('/allpens', (req, res) => {
+  const sql = `SELECT * FROM penDetail WHERE 1`;
+  db.query(sql).then((results) => {
+    // console.log('results:', results);
+    // 即將response出去的資料
+    const output = {
+      body: '',
+      state: null,
+    };
+
+    if (results.length > 0) {
+      output.state = 200;
+      output.body = results[0];
+    } else {
+      output.state = 404;
+    }
+    res.json(output);
+  });
+});
+
 // 分頁
 const getDataList = async (req) => {
   // console.log(req);
@@ -98,7 +120,13 @@ const getDataList = async (req) => {
 router.post('/search', (req, res) => {
   let getSearch = req.body.search;
   console.log('getSearch:', getSearch);
-  const sql = `SELECT * FROM items WHERE itemName LIKE '%${getSearch}%' OR itemsText LIKE '%${getSearch}%'`;
+
+  // 20211124 停用 items table
+  // const sql = `SELECT * FROM items WHERE itemName LIKE '%${getSearch}%' OR itemsText LIKE '%${getSearch}%'`;
+
+  // 20211124 開始使用
+  const sql = `SELECT * FROM penDetail WHERE penTitle LIKE '%${getSearch}%' OR penStyle LIKE '%${getSearch}%'`;
+
   db.query(sql).then(([results]) => {
     // console.log(results);
     res.json(results);

@@ -101,9 +101,9 @@ router.post('/checkinAccount', upload.none(), (req, res) => {
   });
 });
 
-// backend 後台管理使用
-// http://localhost:3009/admin/backend
-router.post('/backend', upload.none(), (req, res) => {
+// backend 後台管理使用 | backend001
+// http://localhost:3009/admin/backend-create
+router.post('/backend-create', upload.none(), (req, res) => {
   const requestList = req.body;
 
   // 即將response出去的資料
@@ -112,26 +112,49 @@ router.post('/backend', upload.none(), (req, res) => {
     state: null,
   };
 
-  const sql = `
-              INSERT INTO penDetail ( penId, penTitle, penImg, penStyle, penStar )
-              VALUES ( ?, ?, ?, ?, ?)
-              `;
-
-  db.query(sql, [
+  const sql = `INSERT INTO penDetail ( penId, penTitle, penImg, penStyle, penStar ) VALUES ( ?, ?, ?, ?, ? )`;
+  const sql2 = `INSERT INTO penBlock ( bId, pen_title, pen_code, is_text ) VALUES ?`;
+  let insert_detail = [
     requestList.penId,
     requestList.title,
     requestList.img,
     requestList.style,
     requestList.star,
-  ]).then(([result]) => {
-    console.log('result:', result);
+  ];
 
+  /**
+   * insert到pen_block
+   * 數據結構: [[],[],[]....]
+   */
+  let insert_block = requestList.blockData.map((reqData, index) => {
+    let penCode = 0;
+    if (reqData.pen_code) {
+      penCode = 1;
+    }
+    return [requestList.penId, reqData.pen_title, penCode, reqData.is_text];
+  });
+
+  db.query(sql, insert_detail).then(([results]) => {
+    console.log('results:', results);
+    if (results.affectedRows && results.insertId) {
+      output.state = 200;
+    } else {
+      output.state = 404;
+    }
+
+    // res.json(output);
+  });
+
+  db.query(sql2, [insert_block]).then((result) => {
+    console.log('result:', result);
     if (result.affectedRows && result.insertId) {
       output.state = 200;
     } else {
       output.state = 404;
     }
+
     res.json(output);
+    res.end();
   });
 });
 

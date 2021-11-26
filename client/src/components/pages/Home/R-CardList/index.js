@@ -3,6 +3,7 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import classnames from 'classnames';
 import posed from 'react-pose';
 import useSWR from 'swr';
+import moment from 'moment';
 
 // API
 import axios from 'axios';
@@ -110,7 +111,7 @@ const CardList = ({ history }) => {
         setIsLoading(true);
         fetchListener.current = axios(postSearchCardListAPI(data))
             .then(res => {
-                // console.log('seacrh001:', res);
+                console.log('seacrh001:', res);
                 if (res.status === 200) {
                     setIsLoading(false);
                     setIsArray(res.data);
@@ -230,10 +231,11 @@ const CardList = ({ history }) => {
                                                                             </div>
                                                                             <div className="r_list_content">
                                                                                 <h2 className="right_list_title">
-                                                                                    {' '}
-                                                                                    {data.penTitle}{' '}
+                                                                                    {data.penTitle}
                                                                                 </h2>
-                                                                                <p>{data.updated_at}</p>
+                                                                                <p>
+                                                                                    {moment(data.updated_at).format('YYYY/MM/DD HH:mm:ss')}
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                         <div className="r_list_title_right">
@@ -255,7 +257,7 @@ const CardList = ({ history }) => {
                                                                         <span>#非常有幫助</span>
                                                                     </div> */}
                                                                         <div className="r_list_tag_content">
-                                                                            {data.itemsText}
+                                                                            {data.penStyle}
                                                                         </div>
                                                                     </div>
                                                                 </div>
