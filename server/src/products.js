@@ -119,7 +119,7 @@ const getDataList = async (req) => {
 // http://localhost:3009/products/search
 router.post('/search', (req, res) => {
   let getSearch = req.body.search;
-  console.log('getSearch:', getSearch);
+  // console.log('getSearch:', getSearch);
 
   // 20211124 停用 items table
   // const sql = `SELECT * FROM items WHERE itemName LIKE '%${getSearch}%' OR itemsText LIKE '%${getSearch}%'`;

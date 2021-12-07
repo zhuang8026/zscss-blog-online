@@ -101,9 +101,9 @@ router.post('/checkinAccount', upload.none(), (req, res) => {
   });
 });
 
-// backend 後台管理使用 | backend001
-// http://localhost:3009/admin/backend-create
-router.post('/backend-create', upload.none(), (req, res) => {
+// backend 後台管理使用 | backend001 ｜ 新增(inert into)
+// http://localhost:3009/admin/backendCreate
+router.post('/backendCreate', upload.none(), (req, res) => {
   const requestList = req.body;
 
   // 即將response出去的資料
@@ -114,6 +114,17 @@ router.post('/backend-create', upload.none(), (req, res) => {
 
   const sql = `INSERT INTO penDetail ( penId, penTitle, penImg, penStyle, penStar ) VALUES ( ?, ?, ?, ?, ? )`;
   const sql2 = `INSERT INTO penBlock ( bId, pen_title, pen_code, is_text ) VALUES ?`;
+
+  if (
+    requestList.title === '' &&
+    requestList.style === '' &&
+    requestList.star === ''
+  ) {
+    output.state = 404;
+    res.json(output);
+    return;
+  }
+
   let insert_detail = [
     requestList.penId,
     requestList.title,
@@ -134,27 +145,87 @@ router.post('/backend-create', upload.none(), (req, res) => {
     return [requestList.penId, reqData.pen_title, penCode, reqData.is_text];
   });
 
-  db.query(sql, insert_detail).then(([results]) => {
-    console.log('results:', results);
+  // basic info data
+  const basicInfo = db.query(sql, insert_detail).then(([results]) => {
     if (results.affectedRows && results.insertId) {
       output.state = 200;
     } else {
       output.state = 404;
     }
-
-    // res.json(output);
+    return output;
   });
 
-  db.query(sql2, [insert_block]).then((result) => {
-    console.log('result:', result);
-    if (result.affectedRows && result.insertId) {
+  // note info data
+  const noteInfo = db.query(sql2, [insert_block]).then(([results]) => {
+    if (results.affectedRows && results.insertId) {
       output.state = 200;
     } else {
       output.state = 404;
     }
+    return output;
+  });
 
+  Promise.all([basicInfo, noteInfo]).then((arrVal) => {
     res.json(output);
-    res.end();
+  });
+});
+
+// backend 後台管理使用 | backend002 ｜ 修改(Edit)
+// http://localhost:3009/admin/backendEdit
+router.post('/backendEdit', upload.none(), (req, res) => {
+  const output = {
+    body: req.body,
+    state: null,
+  };
+  const sql = '';
+
+  db.query(sql, [req.body.account]).then(([result]) => {
+    if (result && result.length > 0) {
+      output.state = 200;
+    } else {
+      output.state = 404;
+    }
+    res.json(output);
+  });
+});
+
+// backend 後台管理使用 | backend003 ｜ 刪除(delete)
+// http://localhost:3009/admin/backendDelete
+router.post('/backendDelete', upload.none(), (req, res) => {
+  const output = {
+    body: req.body,
+    state: null,
+    detailStatus: '',
+    blockStatus: '',
+  };
+
+  const sql_v1 = `DELETE FROM penDetail WHERE penId=?`; // note title
+  const sql_v2 = `DELETE FROM penBlock WHERE bId=?`; // note detail
+
+  const penDetail = db.query(sql_v1, [req.body.penId]).then(([results]) => {
+    if (results.affectedRows) {
+      output.state = 200;
+      output.detailStatus = 'completed';
+    } else {
+      output.state = 404;
+      output.detailStatus = 'failed';
+    }
+    return output;
+  });
+
+  const penBlock = db.query(sql_v2, [req.body.penId]).then(([results]) => {
+    if (results.affectedRows) {
+      output.state = 200;
+      output.blockStatus = 'completed';
+    } else {
+      output.state = 404;
+      output.blockStatus = 'failed';
+    }
+    return output;
+  });
+
+  Promise.all([penDetail, penBlock]).then((reqList) => {
+    res.json(output);
   });
 });
 

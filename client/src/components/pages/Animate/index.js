@@ -122,7 +122,7 @@ const Animate = ({ match }) => {
 
     return (
         <main>
-            <NavTop />
+            {/* <NavTop /> */}
             <Tab pathData={pathData} />
             <Switch>
                 {pathData.map((route, key) => (

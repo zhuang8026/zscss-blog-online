@@ -101,12 +101,11 @@ const AdminContainer = props => {
         });
     };
 
-    // 細節頁面資料
+    // 細節頁面資料/detail001
     const detailPenAPIHandle = dataId => {
         setIsLoading(true);
         fetchListener.current = axios(detailPenAPI('GET', dataId))
             .then(res => {
-                // console.log(res);
                 setIsLoading(false);
                 setDetailData(res.data.results);
             })

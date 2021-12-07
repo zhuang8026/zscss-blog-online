@@ -66,8 +66,9 @@ export const PopWindow = () => {
     };
 
     const Button = () => {
-        return isPopData?.button?.map(elm => (
+        return isPopData?.button?.map((elm, index) => (
             <div
+                key={index}
                 className={cx('btn')}
                 onClick={() => {
                     elm.callback && elm.callback();

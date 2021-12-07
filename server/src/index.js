@@ -168,7 +168,7 @@ io.on('connection', (socket) => {
 
   /* admin 上線通知 */
   socket.on(ADMIN_ONLINE, (username) => {
-    console.log('管理者已登入:', username);
+    // console.log('管理者已登入:', username);
     io.sockets.emit('adminOnline', username);
   });
 });

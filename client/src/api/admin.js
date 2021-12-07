@@ -51,13 +51,36 @@ export const getAllAdminAPI = () => {
     };
 };
 
-// backend 後台管理使用 | backend001
+// backend 後台管理使用 | backend001 | 新增
 export const postBackendCreateAPI = data => {
-    // console.log(data);
     return {
         method: 'POST',
         baseURL: DOMAIN,
-        url: `admin/backend-create`,
+        url: `admin/backendCreate`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        data: data
+    };
+};
+
+// backend 後台管理使用 | backend002 | 修改
+export const postBackendEditAPI = data => {
+    return {
+        method: 'POST',
+        baseURL: DOMAIN,
+        url: `admin/backendEdit`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        data: data
+    };
+};
+
+// backend 後台管理使用 | backend003 ｜ 刪除
+export const postBackendDeleteAPI = data => {
+    return {
+        method: 'POST',
+        baseURL: DOMAIN,
+        url: `admin/backendDelete`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
         data: data

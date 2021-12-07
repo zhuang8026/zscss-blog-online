@@ -9,6 +9,7 @@ const pool = mysql.createPool({
   waitForConnections: true, // 等待连线
   connectionLimit: 10, // 连线资料库个数设定
   queueLimit: 0, // 无限制连线人数
+  multipleStatements: true, // 多個語句（mysql）
 });
 
 // heroku database v2

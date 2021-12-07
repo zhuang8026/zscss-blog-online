@@ -7,7 +7,7 @@ import posed from 'react-pose';
 // import { detailPenAPI } from 'api/products';
 
 // DesignSystem
-import LoadingV2 from 'components/DesignSystem/LoadingV2';
+import LoadingV2 from 'components/DesignSystem/Loading/v2';
 import PrismCode from 'components/DesignSystem/PrismCode';
 import PenText from 'components/DesignSystem/PenText';
 
@@ -35,9 +35,6 @@ const CardList = ({ history, location, match }) => {
     const { Option } = Select;
 
     const { isLoading, detailData, detailPenAPIHandle } = useContext(AdminContext);
-
-    // console.log 專區
-    // console.log(detailData);
 
     // const handleChange = value => {
     //     // console.log(`selected: ${value}`);
@@ -88,7 +85,7 @@ const CardList = ({ history, location, match }) => {
                         {/* // - Null- Undefined↵- Boolean↵- Number↵- BigInt↵- String↵- Symbol */}
                         {detailData.penBlock?.map((data, index) => {
                             return (
-                                <p>
+                                <p key={index}>
                                     <b>{data.pen_title}</b>
                                     {data.pen_code === 0 ? (
                                         <PenText text={data.is_text.trim()} />

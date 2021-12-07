@@ -12,6 +12,7 @@ import NavTop from 'components/DesignSystem/NavTop';
 import NavLeft from 'components/DesignSystem/NavLeft';
 import TableItems from './TableItems';
 import CreateItems from './CreateItems';
+import EditItems from './EditItems';
 
 // css
 import classes from './style.module.scss';
@@ -27,12 +28,18 @@ const Backend = ({ history }) => {
         });
     };
 
+    const openEdit = penId => {
+        openAnimate({
+            component: <EditItems penId={penId} />
+        });
+    };
+
     return (
         <div className={cx('backend')}>
             <NavLeft />
             <div className={cx('body')}>
                 <NavTop openCreate={openCreate} />
-                <TableItems />
+                <TableItems openEdit={openEdit} />
             </div>
         </div>
     );

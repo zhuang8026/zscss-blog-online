@@ -10,7 +10,7 @@ import axios from 'axios';
 import { productsPagesAPI, postSearchCardListAPI } from 'api/products'; // product001 seacrh001
 
 // DesignSystem
-import Loading from 'components/DesignSystem/Loading';
+import Loading from 'components/DesignSystem/Loading/v1';
 import NoData from 'components/DesignSystem/NoData';
 
 // antd

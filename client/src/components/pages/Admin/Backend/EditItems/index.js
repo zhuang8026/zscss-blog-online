@@ -16,22 +16,22 @@ import { popWindowStorage } from 'components/DesignSystem/PopWindow';
 
 // API
 import axios from 'axios';
+import { detailPenAPI } from 'api/products';
 import { postBackendCreateAPI } from 'api/admin';
-import { productsAllpensAPI } from 'api/products';
 
 // css
 import classes from './style.module.scss';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(classes);
 
-const CreateItems = ({ history }) => {
+const EditItems = ({ penId }) => {
     const { openOrompt } = useContext(popWindowStorage);
     const { closeAnimate } = useContext(FullWindowAnimateStorage);
 
     const [basic, setBasic] = useState({});
     const [note, setNote] = useState([]);
-    const [penId, setPenId] = useState('');
     const fetchListener = useRef();
+    const detailListener = useRef();
 
     const addCard = () => {
         setNote(prevState => {
@@ -41,19 +41,11 @@ const CreateItems = ({ history }) => {
     };
 
     const deleteCard = index => {
-        console.log(index);
         setNote(prevState => {
             const front = prevState.slice(0, index);
             const end = prevState.slice(index + 1);
 
             return [...front, ...end];
-        });
-    };
-
-    const switchAction = (event, index) => {
-        setNote(pre => {
-            pre[index]['codeBoolean'] = event;
-            return [...pre];
         });
     };
 
@@ -128,9 +120,8 @@ const CreateItems = ({ history }) => {
 
     // backend001 - save data
     const postBackendCreateAPICallBack = () => {
-        let id = `${penId + 1}`.padStart(5, '0');
         const payload = {
-            penId: `P${id}`,
+            penId,
             title: basic?.penTitle || '',
             img: basic?.penImg || 'js.jpg',
             style: basic?.penStyle || '',
@@ -139,7 +130,6 @@ const CreateItems = ({ history }) => {
         };
 
         fetchListener.current = from(axios(postBackendCreateAPI(payload))).subscribe(res => {
-            console.log('backend001:', res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     openOrompt({
@@ -170,22 +160,34 @@ const CreateItems = ({ history }) => {
         });
     };
 
-    // allpens001
-    const productsAllpensAPICallBack = () => {
-        fetchListener.current = from(axios(productsAllpensAPI())).subscribe(res => {
-            if (res.status === 200) {
-                if (res.data.state === 200) {
-                    let list = res.data.body.pop();
-                    let num = list.penId.replace(/[^0-9]/gi, '');
+    // 細節頁面資料/detail001
+    const detailPenAPIAction = () => {
+        let payload = {
+            id: penId
+        };
+        detailListener.current = axios(detailPenAPI('GET', payload))
+            .then(res => {
+                if (res.status === 200) {
+                    let body = res.data.results;
+                    const { pId, penImg, penStar, penStyle, penTitle, penBlock } = body;
 
-                    setPenId(Number(num));
+                    setNote(penBlock);
+                    setBasic({
+                        pId,
+                        penImg,
+                        penStar,
+                        penStyle,
+                        penTitle
+                    });
                 }
-            }
-        });
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     useEffect(() => {
-        productsAllpensAPICallBack();
+        detailPenAPIAction();
     }, []);
 
     return (
@@ -205,6 +207,7 @@ const CreateItems = ({ history }) => {
                             id="title"
                             name="title"
                             placeholder="請輸入..." //
+                            value={basic.penTitle}
                             onChange={event => {
                                 let val = event.target.value;
                                 basicAction('penTitle', val);
@@ -222,8 +225,9 @@ const CreateItems = ({ history }) => {
                             type="number"
                             min="1"
                             max="5"
+                            value={basic.penStar}
                             onChange={event => {
-                                let val = event.target.value;
+                                let val = Number(event.target.value);
                                 basicAction('penStar', val);
                             }}
                         />
@@ -236,6 +240,7 @@ const CreateItems = ({ history }) => {
                             id="type"
                             name="type"
                             placeholder="請輸入..." //
+                            value={basic.penStyle}
                             onChange={event => {
                                 let val = event.target.value;
                                 basicAction('penStyle', val);
@@ -275,6 +280,7 @@ const CreateItems = ({ history }) => {
                                                   id="addTitle"
                                                   name="addTitle"
                                                   placeholder="請輸入..."
+                                                  value={data.pen_title}
                                                   onChange={event => {
                                                       let val = event.target.value;
                                                       noteAction(index, 'pen_title', val);
@@ -282,9 +288,9 @@ const CreateItems = ({ history }) => {
                                               />
                                           </div>
                                           {/* <div className={cx('inner')}>
-                                                            <label for="addType">container type</label>
-                                                            <input id="addType" name="addType" placeholder="請輸入..." />
-                                                        </div> */}
+                                                    <label for="addType">container type</label>
+                                                    <input id="addType" name="addType" placeholder="請輸入..." />
+                                                </div> */}
                                           <div className={cx('inner')}>
                                               <div className={cx('switch')}>
                                                   <label for="addInner">container inner</label>
@@ -295,6 +301,7 @@ const CreateItems = ({ history }) => {
                                                   <Switch
                                                       checkedChildren="Code"
                                                       unCheckedChildren="Text"
+                                                      defaultChecked={data['pen_code'] ? true : false}
                                                       onChange={event => noteAction(index, 'pen_code', event)}
                                                   />
                                               </div>
@@ -303,6 +310,7 @@ const CreateItems = ({ history }) => {
                                                   name="addInner"
                                                   aria-required="true"
                                                   placeholder="請輸入..."
+                                                  value={data.is_text}
                                                   onChange={event => {
                                                       let val = event.target.value;
                                                       noteAction(index, 'is_text', val);
@@ -320,4 +328,4 @@ const CreateItems = ({ history }) => {
     );
 };
 
-export default withRouter(CreateItems);
+export default withRouter(EditItems);
