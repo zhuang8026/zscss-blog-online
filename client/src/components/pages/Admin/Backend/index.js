@@ -28,9 +28,9 @@ const Backend = ({ history }) => {
         });
     };
 
-    const openEdit = penId => {
+    const openEdit = (penId, reset) => {
         openAnimate({
-            component: <EditItems penId={penId} />
+            component: <EditItems penId={penId} reset={reset}/>
         });
     };
 

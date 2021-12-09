@@ -234,7 +234,9 @@ const CardList = ({ history }) => {
                                                                                     {data.penTitle}
                                                                                 </h2>
                                                                                 <p>
-                                                                                    {moment(data.updated_at).format('YYYY/MM/DD HH:mm:ss')}
+                                                                                    {moment(data.updated_at).format(
+                                                                                        'YYYY/MM/DD HH:mm:ss'
+                                                                                    )}
                                                                                 </p>
                                                                             </div>
                                                                         </div>

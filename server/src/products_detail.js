@@ -17,7 +17,7 @@ router.get('/detail/:id', (req, res) => {
   let output = {};
   let penBlock = [];
   const sql = `
-                SELECT PD.pId, PD.penTitle, PD.penStar, PD.penImg, PD.penStyle, PB.pen_title, PB.pen_code, PB.is_text, PD.created_at 
+                SELECT PD.pId, PD.penTitle, PD.penStar, PD.penImg, PD.penStyle, PB.pen_title, PB.id, PB.pen_code, PB.is_text, PD.created_at 
                 FROM penDetail AS PD 
                 INNER JOIN penBlock AS PB 
                 ON PD.penId = PB.bId 
@@ -29,6 +29,7 @@ router.get('/detail/:id', (req, res) => {
     if (results.length > 0) {
       results.map((data, index) => {
         let resData = {
+          id: data.id,
           pen_code: data.pen_code,
           pen_title: data.pen_title,
           is_text: data.is_text,

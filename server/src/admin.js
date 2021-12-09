@@ -177,14 +177,50 @@ router.post('/backendEdit', upload.none(), (req, res) => {
     body: req.body,
     state: null,
   };
-  const sql = '';
 
-  db.query(sql, [req.body.account]).then(([result]) => {
-    if (result && result.length > 0) {
+  const sql_v1 = 'UPDATE penDetail SET penStar=?, penImg=?, penStyle=?, penTitle=? WHERE penId=?';
+  const sql_v2 = 'UPDATE penBlock SET pen_title=?, pen_code=?, is_text=? WHERE id=?';
+  const result = req.body;
+
+  let update_detail = [
+    result.star,
+    result.img,
+    result.style,
+    result.title,
+    result.penId,
+  ];
+
+  /**
+   * insert到pen_block
+   * 數據結構: [[],[],[]....]
+   */
+  let update_block = result.blockData.map((data, index) => {
+    let penCode = 0;
+    if (data.pen_code) {
+      penCode = 1;
+    }
+    return [data.pen_title, penCode, data.is_text, data.id];
+  });
+
+  let detail = db.query(sql_v1, update_detail).then(([result]) => {
+    if (result && result.affectedRows) {
       output.state = 200;
     } else {
       output.state = 404;
     }
+  });
+
+  let block = update_block.map((item, index) => {
+    db.query(sql_v2, item).then(([result]) => {
+      if (result && result.affectedRows) {
+        output.state = 200;
+      } else {
+        output.state = 404;
+      }
+    });
+  });
+
+  Promise.all([detail, block]).then((pre) => {
     res.json(output);
   });
 });
@@ -228,6 +264,5 @@ router.post('/backendDelete', upload.none(), (req, res) => {
     res.json(output);
   });
 });
-
 
 module.exports = router;

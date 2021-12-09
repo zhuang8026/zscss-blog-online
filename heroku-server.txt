@@ -82,7 +82,7 @@ heroku 一個月有免費550小時，使用使用卡可以增加450個小時，�
     -> 一一對應即可
 
 8. 如何匯入資料庫？
-    -> Server tab
+    -> Server tab (選單)
         -> Data Import
             -> import from self-contained files 並選擇要匯入的資料
                 -> Default Target Schema : 選擇資料庫名字

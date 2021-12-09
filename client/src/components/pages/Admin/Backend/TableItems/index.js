@@ -74,7 +74,7 @@ const TableItems = ({ history, openEdit }) => {
             key: 'action',
             render: (colData, record) => (
                 <Space size="middle">
-                    <a onClick={() => openEdit(colData.penId)}>Edit</a>
+                    <a onClick={() => openEdit(colData.penId, productsPagesAPICallBack)}>Edit</a>
                     <a onClick={() => deleteAction(colData.penId)}>Delete</a>
                 </Space>
             )
@@ -105,9 +105,6 @@ const TableItems = ({ history, openEdit }) => {
             ]
         });
     };
-
-    // 修改
-    const editAction = penId => {};
 
     // product001 API 獲取此頁資料
     const productsPagesAPICallBack = () => {

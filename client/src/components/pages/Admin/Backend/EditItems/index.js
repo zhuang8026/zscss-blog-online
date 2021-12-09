@@ -17,14 +17,14 @@ import { popWindowStorage } from 'components/DesignSystem/PopWindow';
 // API
 import axios from 'axios';
 import { detailPenAPI } from 'api/products';
-import { postBackendCreateAPI } from 'api/admin';
+import { postBackendEditAPI } from 'api/admin';
 
 // css
 import classes from './style.module.scss';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(classes);
 
-const EditItems = ({ penId }) => {
+const EditItems = ({ penId, reset }) => {
     const { openOrompt } = useContext(popWindowStorage);
     const { closeAnimate } = useContext(FullWindowAnimateStorage);
 
@@ -115,11 +115,11 @@ const EditItems = ({ penId }) => {
             });
             return;
         }
-        postBackendCreateAPICallBack();
+        postBackendEditAPICallBack();
     };
 
     // backend001 - save data
-    const postBackendCreateAPICallBack = () => {
+    const postBackendEditAPICallBack = () => {
         const payload = {
             penId,
             title: basic?.penTitle || '',
@@ -129,7 +129,8 @@ const EditItems = ({ penId }) => {
             blockData: note // array
         };
 
-        fetchListener.current = from(axios(postBackendCreateAPI(payload))).subscribe(res => {
+        fetchListener.current = from(axios(postBackendEditAPI(payload))).subscribe(res => {
+            console.log('backend001:', res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     openOrompt({
@@ -143,6 +144,7 @@ const EditItems = ({ penId }) => {
                             }
                         ]
                     });
+                    reset();
                 } else {
                     openOrompt({
                         state: 'error',
@@ -169,6 +171,7 @@ const EditItems = ({ penId }) => {
             .then(res => {
                 if (res.status === 200) {
                     let body = res.data.results;
+                    console.log(body);
                     const { pId, penImg, penStar, penStyle, penTitle, penBlock } = body;
 
                     setNote(penBlock);
@@ -288,16 +291,16 @@ const EditItems = ({ penId }) => {
                                               />
                                           </div>
                                           {/* <div className={cx('inner')}>
-                                                    <label for="addType">container type</label>
-                                                    <input id="addType" name="addType" placeholder="請輸入..." />
-                                                </div> */}
+                                                        <label for="addType">container type</label>
+                                                        <input id="addType" name="addType" placeholder="請輸入..." />
+                                                    </div> */}
                                           <div className={cx('inner')}>
                                               <div className={cx('switch')}>
                                                   <label for="addInner">container inner</label>
                                                   {/**
-                                                            false === 0 / Text
-                                                            true === 1 / Code
-                                                        */}
+                                                                false === 0 / Text
+                                                                true === 1 / Code
+                                                            */}
                                                   <Switch
                                                       checkedChildren="Code"
                                                       unCheckedChildren="Text"
