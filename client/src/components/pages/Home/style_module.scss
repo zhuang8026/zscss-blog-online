@@ -250,6 +250,27 @@ main {
                     font-size: 14px;
                 }
             }
+            .rating_list_inner {
+                .pagination {
+                    border: 1px solid transparent;
+                    border-radius: 5px;
+                    background-color: rgba(11, 65, 96, 0.4);
+                    transition: 0.3s;
+                    padding: 5px 0;
+                    &:hover {
+                        border: 1px solid #0ca;
+                    }
+                    li {
+                        color: #fff;
+                        button {
+                            color: #fff;
+                        }
+                    }
+                    input {
+                        background-color: transparent;
+                    }
+                }
+            }
         }
     }
 }

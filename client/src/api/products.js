@@ -1,5 +1,5 @@
-// const DOMAIN = process.env.REACT_APP_API_DOMAIN || 'http://localhost:3009';
-const DOMAIN = 'http://localhost:3009';
+const DOMAIN = process.env.REACT_APP_API_DOMAIN;
+// const DOMAIN = 'http://localhost:3009';
 
 // product001 獲取分頁資料
 export const productsAllpensAPI = () => {

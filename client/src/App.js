@@ -26,11 +26,13 @@ import AdminContainer, { AdminContext } from 'contexts/admin';
 import { notification } from 'antd';
 import { SmileTwoTone } from '@ant-design/icons';
 
-// package
-// import classnames from "classnames";
-
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 // import 'scss/antd.css';
+
+// css
+import classes from './style.module.scss';
+import classNames from 'classnames/bind';
+const cx = classNames.bind(classes);
 
 function App({ match, location, history }) {
     const [layouts, setLayouts] = useState([]);
@@ -103,7 +105,7 @@ function App({ match, location, history }) {
     }, [isAdmin]);
 
     return (
-        <div className="App">
+        <div className={cx('App')}>
             <Fragment>
                 {layouts.indexOf('NavLeft') >= 0 && (
                     <Suspense fallback={<></>}>

@@ -275,16 +275,17 @@ const CardList = ({ history }) => {
                                 )}
                             </Droppable>
                         </DragDropContext>
-
-                        <Pagination
-                            simple
-                            current={isPage}
-                            defaultCurrent={1}
-                            total={parseInt(`${isData.totalPages}0`)}
-                            onChange={event => {
-                                setIsPage(event);
-                            }}
-                        />
+                        <div className="pagination">
+                            <Pagination
+                                simple
+                                current={isPage}
+                                defaultCurrent={1}
+                                total={parseInt(`${isData.totalPages}0`)}
+                                onChange={event => {
+                                    setIsPage(event);
+                                }}
+                            />
+                        </div>
                     </>
                 ) : (
                     <NoData />
