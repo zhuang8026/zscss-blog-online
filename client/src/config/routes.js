@@ -18,6 +18,7 @@ const Test = lazy(() => import('components/pages/Test'));
 const routes = [
     {
         path: '/',
+        title: 'Home',
         component: Home,
         exact: true,
         authRequired: false,
@@ -25,13 +26,15 @@ const routes = [
     },
     {
         path: '/admin/sign-in',
+        title: 'Sigin in',
         component: SiginIn,
         exact: true,
         authRequired: false,
-        layouts: []
+        layouts: ['']
     },
     {
         path: '/admin/sign-up',
+        title: 'Sigin up',
         component: SiginUp,
         exact: true,
         authRequired: false,
@@ -39,6 +42,7 @@ const routes = [
     },
     {
         path: '/pen-detail/:id',
+        title: 'Detail',
         component: penDetail,
         exact: true,
         authRequired: false,
@@ -46,6 +50,7 @@ const routes = [
     },
     {
         path: '/test',
+        title: 'Test',
         component: Test,
         exact: true,
         authRequired: false,
@@ -57,6 +62,7 @@ const routes = [
 if (getBooleanFromENV('REACT_APP_IS_JAVA_OPEN', false)) {
     routes.push({
         path: '/animate/:param?',
+        title: 'Animate',
         component: Animate,
         exact: true,
         authRequired: false,

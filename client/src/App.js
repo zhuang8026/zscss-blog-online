@@ -38,7 +38,7 @@ function App({ match, location, history }) {
     const [layouts, setLayouts] = useState([]);
     const { isAdmin } = WebsocketNotification(); // admin online
 
-    const { adminData } = useContext(AdminContext);
+    const { adminData, detailData } = useContext(AdminContext);
 
     // all route
     const Routes = () => {
@@ -49,6 +49,7 @@ function App({ match, location, history }) {
                 exact={route.exact}
                 sensitive
                 render={() => {
+                    document.title = `${route.title} | Zscss`;
                     return <route.component localeMatch={match} routeData={route} />;
                 }}
             />

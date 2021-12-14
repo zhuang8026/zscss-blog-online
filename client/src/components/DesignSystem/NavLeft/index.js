@@ -47,7 +47,7 @@ const NavLeft = ({ type = 'success', history }) => {
             <ul className={cx('nav_ul')}>
                 <li>
                     <Link to={'/'}>
-                        <span>JavaScript</span>
+                        <span>FrameWork</span>
                         <img src={require(`images/Home/zscss.png`)} alt="home" />
                     </Link>
                 </li>

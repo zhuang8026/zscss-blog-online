@@ -36,55 +36,54 @@ import ReactUnityWebgl from './ReactUnityWebgl';
 import './style_module.scss';
 
 const Animate = ({ match }) => {
-    console.log(match);
     const pathData = [
         {
-            title: 'dndDrag',
+            title: 'dnd Drag',
             path: 'dndDrag',
             component: DndDrag
         },
         {
-            title: 'Class-Drag',
+            title: 'Class Drag',
             path: 'dragTableClass',
             component: DragTableClass
         },
         {
-            title: 'Hooks-Drag',
+            title: 'Hooks Drag',
             path: 'dragTableHooks',
             component: DragTableHooks
         },
         {
-            title: 'dragGroup-useContext',
+            title: 'dragGroup useContext',
             path: 'dragGroup',
             component: DragGroup
         },
         {
-            title: 'dragGroupv2-normal',
+            title: 'drag Groupv2 normal',
             path: 'DragGroupV2Normal',
             component: DragGroupV2Normal
         },
         {
-            title: 'dragGroupv2Demo',
+            title: 'drag Groupv2 Demo',
             path: 'dragGroupv2Demo',
             component: DragGroupV2Demo
         },
         {
-            title: 'dragv2AutoScrollv2',
+            title: 'dragv2 Auto Scrollv2',
             path: 'dragv2AutoScrollv2',
             component: Dragv2AutoScrollv2
         },
         {
-            title: 'dragv2AutoScrollv3',
+            title: 'dragv2 Auto Scrollv3',
             path: 'dragv2AutoScrollv3',
             component: Dragv2AutoScrollV3
         },
         {
-            title: 'saveToIndexedDB',
+            title: 'save to IndexedDB',
             path: 'saveToIndexedDB',
             component: SaveToIndexedDB
         },
         {
-            title: 'hoverCreateElement',
+            title: 'hover create element',
             path: 'hoverCreateElement',
             component: HoverCreateElement
         },
@@ -94,7 +93,7 @@ const Animate = ({ match }) => {
             component: GsapLoading
         },
         {
-            title: 'moveToDomAnimation',
+            title: 'move To Dom Animation',
             path: 'moveToDomAnimation',
             component: MoveToDomAnimation
         },
@@ -109,12 +108,12 @@ const Animate = ({ match }) => {
             component: ReduxHooks
         },
         {
-            title: 'ReduxHooks-TodoList',
+            title: 'ReduxHooks TodoList',
             path: 'reduxHooksTodoList',
             component: ReduxHooksTodoList
         },
         {
-            title: 'react-Unity-Webgl',
+            title: 'react Unity Webgl',
             path: 'reactUnityWebgl',
             component: ReactUnityWebgl
         }
@@ -129,11 +128,12 @@ const Animate = ({ match }) => {
                     <Route
                         key={`route_java_${key}`}
                         path={`${match.path}/${route.path}`}
-                        component={route.component}
+                        // component={route.component}
                         // exact={route.exact}
-                        // render={() => {
-                        //     return <route.component />;
-                        // }}
+                        render={() => {
+                            document.title = `${route.title} | Zscss` || 'Animate | Zscss';
+                            return <route.component />;
+                        }}
                     />
                 ))}
             </Switch>

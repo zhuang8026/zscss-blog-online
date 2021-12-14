@@ -18,6 +18,10 @@ import './style_module.scss';
 const PenDetail = () => {
     const { detailData } = useContext(AdminContext);
 
+    useEffect(() => {
+        document.title = detailData.penTitle;
+    }, [detailData]);
+
     return (
         <main>
             {/* <NavTop /> */}

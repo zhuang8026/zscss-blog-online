@@ -215,7 +215,8 @@ const CardList = ({ history }) => {
                                                                     className="r_list_hover"
                                                                     id={data.pId}
                                                                     onClick={e => {
-                                                                        history.push(`/pen-detail/${data.penId}`);
+                                                                        // history.push(`/pen-detail/${data.penId}`);
+                                                                        window.open(`/pen-detail/${data.penId}`);
                                                                     }}
                                                                 />
                                                                 <div className="r_list_card">
