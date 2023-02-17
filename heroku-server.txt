@@ -48,15 +48,16 @@ heroku 一個月有免費550小時，使用使用卡可以增加450個小時，�
     -> git pull heroku master
 
 4. MySQL 配置
-    -> heroku addons:create cleardb:ignite
+    -> cmd輸入: heroku addons:create cleardb:ignite
         ->  這部需要先登記信用卡
         ->  得知 ClearDB 資料庫配置
-        ->  heroku config | grep CLEARDB_DATABASE_URL
+        -> cmd輸入: heroku config | grep CLEARDB_DATABASE_URL
             -> GET:
                 $ heroku config | grep CLEARDB_DATABASE_URL
-                CLEARDB_DATABASE_URL:mysql://be6c96a165xxx0:c504fxxx@us-cdbr-iron-east-05.cleardb.net/heroku_e8d000339887xxx?reconnect=true
+                zscss009 -> CLEARDB_DATABASE_URL:mysql://be6c96a165xxx0:c504fxxx@us-cdbr-iron-east-05.cleardb.net/heroku_e8d000339887xxx?reconnect=true
+                kesong0206 -> CLEARDB_DATABASE_URL: mysql://b6f919e203c945:abe5210f@us-cdbr-east-06.cleardb.net/heroku_74e9d3700350a68?reconnect=true
                 // 補充
-                // username: be6c96a16xxxd
+                // username: be6c96a165xxx0
                 // password: c504fxxx
                 // host: us-cdbr-iron-east-05.cleardb.net
                 // database: heroku_e8d000339887xxx
