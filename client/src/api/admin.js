@@ -1,4 +1,4 @@
-const DOMAIN = process.env.REACT_APP_API_DOMAIN;
+const DOMAIN = process.env.REACT_APP_API_DOMAIN_v2;
 // const DOMAIN = 'http://localhost:3009';
 
 // admin sign-in s001 | admin登入 | signin 使用
