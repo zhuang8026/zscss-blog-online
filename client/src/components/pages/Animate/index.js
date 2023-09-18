@@ -29,8 +29,8 @@ import OpenYoutube from './OpenYoutube';
 // ReduxHooks
 import ReduxHooks from './ReduxHooks';
 import ReduxHooksTodoList from './ReduxHooksTodoList';
-// ReactUnityWebgl
-import ReactUnityWebgl from './ReactUnityWebgl';
+// EasyRedux
+import EasyRedux from './EasyRedux';
 
 // css
 import './style_module.scss';
@@ -113,9 +113,9 @@ const Animate = ({ match }) => {
             component: ReduxHooksTodoList
         },
         {
-            title: 'react Unity Webgl',
-            path: 'reactUnityWebgl',
-            component: ReactUnityWebgl
+            title: 'Easy Redux',
+            path: 'easyRedux',
+            component: EasyRedux
         }
     ];
 

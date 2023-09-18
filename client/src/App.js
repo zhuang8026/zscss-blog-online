@@ -22,6 +22,9 @@ import privateRoutes from 'config/privateRoutes.js';
 // Context
 import AdminContainer, { AdminContext } from 'contexts/admin';
 
+// redux
+// import store from './store';
+
 // antd
 import { notification } from 'antd';
 import { SmileTwoTone } from '@ant-design/icons';
@@ -39,6 +42,16 @@ function App({ match, location, history }) {
     const { isAdmin } = WebsocketNotification(); // admin online
 
     const { adminData, detailData } = useContext(AdminContext);
+
+    // --- redux test ---
+    // // 獲取當前使用者
+    // const currentUser = store.getState().user;
+    // // console.log('user:', currentUser);
+    // // 設置新的使用者
+    // store.dispatch({ type: 'SET_USER', user: { name: 'John Doe' } });
+    // // 獲取更新後的使用者
+    // const updatedUser = store.getState().user;
+    // // console.log('user:', updatedUser); // { name: 'John Doe' }
 
     // all route
     const Routes = () => {
