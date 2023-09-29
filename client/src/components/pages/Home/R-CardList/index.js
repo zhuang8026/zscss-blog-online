@@ -219,52 +219,52 @@ const CardList = ({ history }) => {
                                                                         window.open(`/pen-detail/${data.penId}`);
                                                                     }}
                                                                 />
-                                                                <div className="r_list_card">
-                                                                    <div className="r_list_title">
-                                                                        <div className="r_list_title_left">
-                                                                            <div className="r_list_head">
-                                                                                <div className="figure_icon">
-                                                                                    <img
-                                                                                        src={require(`images/pen/${data.penImg}`)}
-                                                                                        alt="頭像"
-                                                                                    />
+                                                                    <div className="r_list_card">
+                                                                        <div className="r_list_title">
+                                                                            <div className="r_list_title_left">
+                                                                                <div className="r_list_head">
+                                                                                    <div className="figure_icon">
+                                                                                        <img
+                                                                                            src={require(`images/pen/${data.penImg}`)}
+                                                                                            alt="頭像"
+                                                                                        />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="r_list_content">
+                                                                                    <h2 className="right_list_title">
+                                                                                        {data.penTitle}
+                                                                                    </h2>
+                                                                                    <p>
+                                                                                        {moment(data.updated_at).format(
+                                                                                            'YYYY/MM/DD HH:mm:ss'
+                                                                                        )}
+                                                                                    </p>
                                                                                 </div>
                                                                             </div>
-                                                                            <div className="r_list_content">
-                                                                                <h2 className="right_list_title">
-                                                                                    {data.penTitle}
-                                                                                </h2>
-                                                                                <p>
-                                                                                    {moment(data.updated_at).format(
-                                                                                        'YYYY/MM/DD HH:mm:ss'
-                                                                                    )}
-                                                                                </p>
+                                                                            <div className="r_list_title_right">
+                                                                                <CloudUploadOutlined className="icon-20" />
                                                                             </div>
                                                                         </div>
-                                                                        <div className="r_list_title_right">
-                                                                            <CloudUploadOutlined className="icon-20" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="r_list_bottom">
-                                                                        <div className="r_list_star">
-                                                                            <Rate
-                                                                                disabled
-                                                                                allowHalf
-                                                                                defaultValue={data.penStar}
-                                                                                value={data.penStar}
-                                                                            />
-                                                                        </div>
-                                                                        {/* 20201219 - 暫時隱藏 */}
-                                                                        {/* <div className="r_list_tag">
-                                                                        <span>#太棒了</span>
-                                                                        <span>#非常有幫助</span>
-                                                                    </div> */}
-                                                                        <div className="r_list_tag_content">
-                                                                            {data.penStyle}
+                                                                        <div className="r_list_bottom">
+                                                                            <div className="r_list_star">
+                                                                                <Rate
+                                                                                    disabled
+                                                                                    allowHalf
+                                                                                    defaultValue={data.penStar}
+                                                                                    value={data.penStar}
+                                                                                />
+                                                                            </div>
+                                                                            {/* 20201219 - 暫時隱藏 */}
+                                                                            {/* <div className="r_list_tag">
+                                                                            <span>#太棒了</span>
+                                                                            <span>#非常有幫助</span>
+                                                                        </div> */}
+                                                                            <div className="r_list_tag_content">
+                                                                                {data.penStyle}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                         </ItemAnimated>
                                                     </div>
                                                 )}

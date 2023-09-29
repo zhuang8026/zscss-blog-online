@@ -1,4 +1,4 @@
-const DOMAIN = process.env.REACT_APP_API_DOMAIN_v2;
+const DOMAIN = process.env.REACT_APP_API_DOMAIN_LOCAL;
 // const DOMAIN = 'http://localhost:3009';
 
 // product001 獲取分頁資料

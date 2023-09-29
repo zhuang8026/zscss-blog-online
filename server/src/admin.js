@@ -1,6 +1,7 @@
 const express = require('express');
 // const moment = require("moment-timezone");
 const upload = require(__dirname + '/upload-module');
+const { generateToken, verifyToken } = require('./admin_token'); // 引入您的令牌生成和验证模块
 const db = require(__dirname + '/db_connect');
 
 const router = express.Router();
@@ -30,6 +31,8 @@ router.post('/signin', upload.none(), (req, res) => {
 
   db.query(sql, [req.body.account, req.body.password]).then(([result]) => {
     if (result && result.length > 0) {
+
+      // 存取 user 登入狀態
       db.query(upDateSql, [1, result[0].account]).then(([results]) => {
         if (results.affectedRows && results.changedRows) {
           console.log('login ok');
@@ -41,11 +44,52 @@ router.post('/signin', upload.none(), (req, res) => {
       output.nickname = result[0].nickname;
       output.userimg = result[0].userimg;
       // req.session.adminSession = result[0]; // adminSession 这是自己定义的，将result的资料赋值给 admin
+
+      // 產生 JWT
+      const payload = {
+        id: result[0].sid,
+        userName: result[0].nickname,
+      };
+
+      // 取得 API Token
+      const token = generateToken(payload);
+      output.token = token;
+
     } else {
       output.state = 404;
     }
     res.json(output);
   });
+});
+
+// 受保护的端点，需要验证令牌
+router.get('/protected', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];; // 从请求头中获取令牌
+  const decoded = verifyToken(token);
+  const output = {
+    state: 200,  
+    message: '', 
+    decoded: '' 
+  };
+
+  if (!token) {
+    output.state = 401;
+    output.message = '沒有提供令牌';
+  }
+
+  if (!decoded) {
+    output.state = 401;
+    output.message = '令牌無效';
+  }
+
+  // 在这里执行受保护资源的操作
+  if(token && decoded) {
+    output.state = 200;
+    output.message = '存取受保護資源成功';
+    output.decoded = decoded;
+  }
+
+  res.json(output);
 });
 
 // admin登出 | signOut 使用
@@ -178,8 +222,10 @@ router.post('/backendEdit', upload.none(), (req, res) => {
     state: null,
   };
 
-  const sql_v1 = 'UPDATE penDetail SET penStar=?, penImg=?, penStyle=?, penTitle=? WHERE penId=?';
-  const sql_v2 = 'UPDATE penBlock SET pen_title=?, pen_code=?, is_text=? WHERE id=?';
+  const sql_v1 =
+    'UPDATE penDetail SET penStar=?, penImg=?, penStyle=?, penTitle=? WHERE penId=?';
+  const sql_v2 =
+    'UPDATE penBlock SET pen_title=?, pen_code=?, is_text=? WHERE id=?';
   const result = req.body;
 
   let update_detail = [

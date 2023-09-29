@@ -81,7 +81,7 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
                                     />
                                 </div>
                                 <p>{data.nickname}</p>
-                                <div className={cx(`admin_online ${data.loginStatus ? 'admin_state' : ''}`)} />
+                                <div className={cx('admin_online', `${data.loginStatus ? 'admin_state' : ''}`)} />
                             </div>
                             <div className={cx('rating_admin_icon')}>
                                 <CommentOutlined className={cx('icon-chat')} />

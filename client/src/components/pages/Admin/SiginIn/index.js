@@ -121,7 +121,7 @@ const SiginIn = ({ history }) => {
                             usernameStatus === null
                                 ? ' '
                                 : usernameStatus === true
-                                ? 'ok'
+                                ? 'success'
                                 : 'This account is not registered'
                         }
                         // rules={[
@@ -147,7 +147,12 @@ const SiginIn = ({ history }) => {
                         name="password"
                         hasFeedback
                         validateStatus={password.length >= 5 ? 'success' : password.length == 0 ? '' : 'error'} // success warning error
-                        help={password.length == 0 ? ' ' : password.length >= 5 ? 'ok' : 'password length max >= 6'}
+                        help={
+                            password.length == 0 
+                            ? ' ' : password.length >= 5 
+                            ? 'success' 
+                            : 'password length max >= 6'
+                        }
                         // rules={[
                         //     {
                         //         required: true,
@@ -168,6 +173,7 @@ const SiginIn = ({ history }) => {
                     <Form.Item>
                         <Form.Item name="remember" noStyle>
                             <Checkbox
+                                checked={check}
                                 onChange={e => {
                                     setcheck(e.target.checked);
                                 }}

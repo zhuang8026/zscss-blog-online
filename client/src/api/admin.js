@@ -1,8 +1,23 @@
-const DOMAIN = process.env.REACT_APP_API_DOMAIN_v2;
+const DOMAIN = process.env.REACT_APP_API_DOMAIN_LOCAL;
 // const DOMAIN = 'http://localhost:3009';
 
+// admin sign-in s000 | admin token 檢查 | 全站使用
+export const getVerifyTokenAPI = (token) => {
+    // console.log(data);
+    return {
+        method: 'GET',
+        baseURL: DOMAIN,
+        url: `/admin/protected`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        headers: {
+            'Authorization': `Bearer ${token}`, // 设置Authorization头部，使用Bearer令牌格式
+        },
+    };
+};
+
 // admin sign-in s001 | admin登入 | signin 使用
-export const postAdminSignIinAPI = data => {
+export const postAdminSignIinAPI = (data) => {
     // console.log(data);
     return {
         method: 'POST',
@@ -59,7 +74,7 @@ export const postBackendCreateAPI = data => {
         url: `admin/backendCreate`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        data: data
+        data: data,
     };
 };
 

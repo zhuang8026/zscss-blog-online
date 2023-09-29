@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 // API
 import axios from 'axios';
-import { postAdminSignIinAPI, postAdminSignOutAPI } from 'api/admin';
+import { postAdminSignIinAPI, postAdminSignOutAPI, getVerifyTokenAPI } from 'api/admin';
 import { detailPenAPI } from 'api/products';
 
 // DesignSystem
@@ -32,7 +32,12 @@ const AdminContainer = props => {
     // 登入
     const setLoggedInMember = res => {
         setIsLoggedIn(true);
-        Cookies.set('admin_token', res.data, { expires: 7, path: '' });
+        // 设置Cookie的过期时间为2分钟
+        const eightHoursInMilliseconds = 9 * 60 * 60 * 1000; // 9小时的毫秒数
+        const expirationTime = new Date(Date.now() + eightHoursInMilliseconds);
+        Cookies.set('admin_token', res.data, { expires: expirationTime, path: '' });
+        Cookies.set('_token', res.data.token, { expires: expirationTime, path: '' });
+
         const IsAdmin = [];
         IsAdmin.push({ all: JSON.parse(Cookies.get('admin_token')) });
 
@@ -44,9 +49,10 @@ const AdminContainer = props => {
 
     // 登出
     const unsetLoggedInMember = () => {
+        let admin_token = JSON.parse(Cookies.get('admin_token'));
         const data = {
-            account: adminData[0].all.body.account,
-            password: adminData[0].all.body.password
+            account: admin_token.body.account,
+            password: admin_token.body.password
         };
         fetchListener.current = from(axios(postAdminSignOutAPI(data))).subscribe(res => {
             if (res.status === 200) {
@@ -54,6 +60,7 @@ const AdminContainer = props => {
                 openNotification();
                 setIsLoggedIn(false);
                 Cookies.remove('admin_token', { path: '' });
+                Cookies.remove('_token', { path: '' });
                 const isAdmin = {
                     body: null
                 };
@@ -81,21 +88,25 @@ const AdminContainer = props => {
         });
     };
 
-    // 登入監控
+    // 登入監控 (令牌時效 1min)
     const ListenAdminSignIn = () => {
-        let adData = Cookies.get('admin_token') ? JSON.parse(Cookies.get('admin_token')) : '';
-        const signInData = {
-            account: adData ? adData.body.account : '',
-            password: adData ? adData.body.password : ''
-        };
-        fetchListener.current = from(axios(postAdminSignIinAPI(signInData))).subscribe(res => {
-            if (res.status === 200) {
+        let token = Cookies.get('_token') || '';
+        let admin_token = Cookies.get('admin_token') || '';
+
+        fetchListener.current = from(axios(getVerifyTokenAPI(token))).subscribe(res => {
+            console.log('getVerifyTokenAPI:', res);
+            if (res.status == 200) {
                 if (res.data.state === 200) {
-                    const isAdmins = new Array();
-                    isAdmins.push({ all: JSON.parse(Cookies.get('admin_token')) });
-                    setAdminData(isAdmins);
+                    console.log('admin verify token success');
+                    const IsAdmin = [];
+                    IsAdmin.push({ all: JSON.parse(Cookies.get('admin_token')) });
+                    setAdminData(IsAdmin);
+
                 } else {
-                    console.log('sign out again');
+                    console.log('admin verify token failed');
+                    if (admin_token !== '') {
+                        unsetLoggedInMember();
+                    }
                 }
             }
         });
@@ -118,11 +129,12 @@ const AdminContainer = props => {
         ListenAdminSignIn();
     }, []);
 
-    useEffect(() => {
-        if (Cookies.get('admin_token') === 'undefined') {
-            unsetLoggedInMember();
-        }
-    }, []);
+    // useEffect(() => {
+    //     let admin_token = Cookies.get('admin_token') || '';
+    //     if (admin_token === '') {
+    //         unsetLoggedInMember();
+    //     }
+    // }, []);
 
     return (
         <AdminContext.Provider
@@ -133,6 +145,7 @@ const AdminContainer = props => {
                 adminData,
                 setLoggedInMember,
                 unsetLoggedInMember,
+                ListenAdminSignIn, // 監控令牌時效
                 // --- 細節頁 ---
                 detailData,
                 detailPenAPIHandle,
