@@ -20,7 +20,6 @@ export const AdminContext = createContext();
 
 const AdminContainer = props => {
     const { history, location, match } = props;
-    // const [admin, setAdmin] = useState(JSON.parse(Cookies.get('admin_token')));
     const [adminData, setAdminData] = useState([]);
     const [detailData, setDetailData] = useState({}); // 此頁資料
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 載入專用
@@ -30,16 +29,25 @@ const AdminContainer = props => {
     const { publicAdmin } = WebsocketNotification(); // admin online
 
     // 登入
-    const setLoggedInMember = res => {
+    const setLoggedInMember = res => {   
         setIsLoggedIn(true);
         // 设置Cookie的过期时间为2分钟
         const eightHoursInMilliseconds = 9 * 60 * 60 * 1000; // 9小时的毫秒数
         const expirationTime = new Date(Date.now() + eightHoursInMilliseconds);
-        Cookies.set('admin_token', res.data, { expires: expirationTime, path: '' });
         Cookies.set('_token', res.data.token, { expires: expirationTime, path: '' });
 
+        let _admin = { 
+            sid: res.data.sid, 
+            nickname: res.data.nickname,
+            account: res.data.body.account,
+            password: res.data.body.password,
+            userimg: res.data.userimg,
+            loginStatus: res.data.loginStatus,
+        }
+        localStorage.setItem("_admin", JSON.stringify(_admin));
+
         const IsAdmin = [];
-        IsAdmin.push({ all: JSON.parse(Cookies.get('admin_token')) });
+        IsAdmin.push(_admin);
 
         setAdminData(IsAdmin);
 
@@ -49,18 +57,19 @@ const AdminContainer = props => {
 
     // 登出
     const unsetLoggedInMember = () => {
-        let admin_token = JSON.parse(Cookies.get('admin_token'));
+        let admin_token = JSON.parse(localStorage.getItem("_admin"));
+
         const data = {
-            account: admin_token.body.account,
-            password: admin_token.body.password
+            account: admin_token.account,
+            password: admin_token.password,
         };
         fetchListener.current = from(axios(postAdminSignOutAPI(data))).subscribe(res => {
             if (res.status === 200) {
                 console.log('sign out ok');
                 openNotification();
                 setIsLoggedIn(false);
-                Cookies.remove('admin_token', { path: '' });
                 Cookies.remove('_token', { path: '' });
+                localStorage.removeItem('_admin');
                 const isAdmin = {
                     body: null
                 };
@@ -91,20 +100,19 @@ const AdminContainer = props => {
     // 登入監控 (令牌時效 1min)
     const ListenAdminSignIn = () => {
         let token = Cookies.get('_token') || '';
-        let admin_token = Cookies.get('admin_token') || '';
+        let admin_token = JSON.parse(localStorage.getItem("_admin"))
 
         fetchListener.current = from(axios(getVerifyTokenAPI(token))).subscribe(res => {
-            console.log('getVerifyTokenAPI:', res);
             if (res.status == 200) {
                 if (res.data.state === 200) {
                     console.log('admin verify token success');
                     const IsAdmin = [];
-                    IsAdmin.push({ all: JSON.parse(Cookies.get('admin_token')) });
+                    IsAdmin.push(admin_token);
                     setAdminData(IsAdmin);
 
                 } else {
                     console.log('admin verify token failed');
-                    if (admin_token !== '') {
+                    if (admin_token) {
                         unsetLoggedInMember();
                     }
                 }
@@ -128,13 +136,6 @@ const AdminContainer = props => {
     useEffect(() => {
         ListenAdminSignIn();
     }, []);
-
-    // useEffect(() => {
-    //     let admin_token = Cookies.get('admin_token') || '';
-    //     if (admin_token === '') {
-    //         unsetLoggedInMember();
-    //     }
-    // }, []);
 
     return (
         <AdminContext.Provider

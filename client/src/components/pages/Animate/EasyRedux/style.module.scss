@@ -1,8 +1,8 @@
 .easyRedux {
-    width: 90%;
+    width: 50%;
     margin: 0 auto;
     display: flex;
-    background-color: orangered;
+    // background-color: #00274e;
     .btn {
         width: 200px;
         margin: 0 auto;
@@ -22,5 +22,15 @@
                 border: 1px solid #fff;
             }
         }
+    }
+    h1 {
+        width: 100px;
+        height: 36px;
+        line-height: 36px;
+        background-color: #00274e;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 40px;
     }
 }

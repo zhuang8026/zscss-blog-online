@@ -12,7 +12,10 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(classes);
 
 const EasyRedux = () => {
-    let count = useSelector(state => state.count);
+    let count = useSelector(state => {
+        console.log('useSelector:', state);
+        return state.userReducer.count
+    });
     // 用 useDispatch 產生 dispatch 方法
     const dispatch = useDispatch();
     const add = () => {

@@ -30,14 +30,12 @@ const SiginIn = ({ history }) => {
 
     const { adminData, setLoggedInMember } = useContext(AdminContext);
 
-    // console.log(adminData);
     // 確認帳號是否存在
     const userNameCheckInCallBack = objectValue => {
         const adminData = {
             account: objectValue
         };
         fetchListener.current = from(axios(postUserNameCheckInAPI(adminData))).subscribe(res => {
-            // console.log('Check in admin :', res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     setUsernameStatus(true);
@@ -56,13 +54,11 @@ const SiginIn = ({ history }) => {
             password: decodeURIComponent(data.password)
         };
         fetchListener.current = from(axios(postAdminSignIinAPI(signInData))).subscribe(res => {
-            // console.log('postAdminSignIinAPI:', res);
             if (res.status === 200) {
                 if (res.data.state === 200) {
                     setIsLoading(false);
                     setLoggedInMember(res);
                     // history.push('/');
-                    // Cookies.set('admin_token', res.data, { expires: 7, path: '' });
                 } else {
                     setIsLoading(false);
                     openNotification();
@@ -94,7 +90,7 @@ const SiginIn = ({ history }) => {
 
     //  取消監聽
     useEffect(() => {
-        if (adminData.length > 0 && adminData[0].all.loginStatus) {
+        if (adminData.length > 0 && adminData[0].loginStatus) {
             history.replace('/');
         }
     }, [adminData]);

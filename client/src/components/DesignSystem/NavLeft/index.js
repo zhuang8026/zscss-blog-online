@@ -81,14 +81,14 @@ const NavLeft = ({ type = 'success', history }) => {
                     })}
                 />
             </ul>
-
-            {adminData.length > 0 && adminData[0].all.loginStatus ? (
+            
+            {adminData.length > 0 && adminData[0].loginStatus ? (
                 <div className={cx('admin_data')}>
                     <div className={cx('nav_avatar', 'btn_bottom')}>
-                        {!adminData[0]?.all.userimg ? (
+                        {!adminData[0]?.userimg ? (
                             <img src={require(`images/Home/null_img.png`)} alt="avatar" />
                         ) : (
-                            <img src={require(`images/admin/${adminData[0]?.all.userimg}`)} alt="avatar" />
+                            <img src={require(`images/admin/${adminData[0]?.userimg}`)} alt="avatar" />
                         )}
                     </div>
                     <div className={cx('admin_list')}>

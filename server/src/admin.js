@@ -115,8 +115,7 @@ router.post('/signOut', upload.none(), (req, res) => {
 // 全部admin | admin list 使用
 // http://localhost:3009/admin/allAdmin
 router.get('/allAdmin', (req, res) => {
-  const sql =
-    'SELECT sid, account, nickname, userimg, loginStatus FROM admin WHERE 1';
+  const sql = 'SELECT sid, account, nickname, userimg, loginStatus FROM admin WHERE 1';
   db.query(sql).then((results) => {
     // console.log(results);
     res.json(results[0]);

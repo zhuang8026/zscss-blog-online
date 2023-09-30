@@ -100,19 +100,19 @@ const NavTop = ({ openCreate }) => {
     };
 
     return (
-        <div className={`top_nav ${adminData[0]?.all?.loginStatus ? 'member_in' : 'member_out'}`}>
+        <div className={`top_nav ${adminData[0]?.loginStatus ? 'member_in' : 'member_out'}`}>
             <ul>
                 <li>
-                    {adminData.length > 0 && adminData[0].all.loginStatus ? (
+                    {adminData.length > 0 && adminData[0].loginStatus ? (
                         <>
                             <div className="nav_avatar btn_left">
-                                {!adminData[0]?.all.userimg ? (
+                                {!adminData[0]?.userimg ? (
                                     <img src={require(`images/Home/null_img.png`)} alt="avatar" />
                                 ) : (
-                                    <img src={require(`images/admin/${adminData[0]?.all.userimg}`)} alt="avatar" />
+                                    <img src={require(`images/admin/${adminData[0]?.userimg}`)} alt="avatar" />
                                 )}
                             </div>
-                            {/* <div className="nav_btn btn_left">{adminData[0].all.nickname}</div> */}
+                            {/* <div className="nav_btn btn_left">{adminData[0].nickname}</div> */}
                             <div
                                 className="nav_btn btn_left btn_out"
                                 onClick={() => {
@@ -139,7 +139,7 @@ const NavTop = ({ openCreate }) => {
 
                     {/* <div className="nav_btn btn_left">{list.length > 0 ? list.length : 0}/人</div> */}
                 </li>
-                {adminData.length > 0 && adminData[0].all.loginStatus ? (
+                {adminData.length > 0 && adminData[0].loginStatus ? (
                     <li>
                         <div className="nav_btn btn_right" onClick={() => createAction()}>
                             新增

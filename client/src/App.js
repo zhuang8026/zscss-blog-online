@@ -41,7 +41,7 @@ function App({ match, location, history }) {
     const [layouts, setLayouts] = useState([]);
     const { isAdmin } = WebsocketNotification(); // admin online
 
-    const { adminData, detailData } = useContext(AdminContext);
+    const { adminData, detailData, ListenAdminSignIn } = useContext(AdminContext);
 
     // --- redux test ---
     // // 獲取當前使用者
@@ -72,7 +72,7 @@ function App({ match, location, history }) {
     // PrivateRoute
     const PrivateRoutes = () => {
         if (adminData.length > 0) {
-            let authRequired = adminData[0]?.all?.loginStatus;
+            let authRequired = adminData[0]?.loginStatus;
             return privateRoutes.map((route, key) => (
                 <PrivateRoute
                     path={`${route.path}`}

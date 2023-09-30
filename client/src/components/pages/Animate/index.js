@@ -113,7 +113,7 @@ const Animate = ({ match }) => {
             component: ReduxHooksTodoList
         },
         {
-            title: 'Easy Redux',
+            title: 'Use Redux 8.1.2',
             path: 'easyRedux',
             component: EasyRedux
         }

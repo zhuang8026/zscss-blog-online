@@ -20,7 +20,7 @@ import './style_module.scss';
 
 const Home = () => {
     const { adminData, unsetLoggedInMember, openAdminNotification } = useContext(AdminContext);
-    const isAdminOpen = adminData[0]?.all?.loginStatus;
+    const isAdminOpen = adminData[0]?.loginStatus;
 
     const [isOpen, setIsOpen] = useState(false);
     const [roomData, setRoomData] = useState(); // create new chatroom
@@ -82,8 +82,8 @@ const Home = () => {
                     arrayChat.map((roomId, index) => {
                         let createRoom = {
                             roomId: roomId,
-                            adminName: adminData[0]?.all?.nickname,
-                            adminImg: adminData[0]?.all?.userimg
+                            adminName: adminData[0]?.nickname,
+                            adminImg: adminData[0]?.userimg
                         };
                         return <ChatRoomAdmin roomData={createRoom} closeAdminChatroomFun={closeAdminChatroomFun} />;
                     })}
