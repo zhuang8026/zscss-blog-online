@@ -67,8 +67,11 @@
                     -moz-transition: 1s;
                     transition: 1s;
                 }
-                .admin_state {
+                .admin_signin {
                     background-color: #0ca;
+                }
+                .admin_signout {
+                    background: gray;
                 }
             }
 

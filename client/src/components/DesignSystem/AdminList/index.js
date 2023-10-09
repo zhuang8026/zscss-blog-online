@@ -74,14 +74,14 @@ const AdminList = ({ isOpen, setIsOpen, openChat }) => {
                             }}
                         >
                             <div className={cx('rating_admin_img')}>
-                                <div className={cx('figure_icon')}>
+                                <div className={cx('figure_icon', `${!data.loginStatus && 'admin_signout'}`)}>
                                     <img
                                         src={require(`images/Home/${data.userimg ? data.userimg : 'null_img.png'}`)}
                                         alt="頭像"
                                     />
                                 </div>
                                 <p>{data.nickname}</p>
-                                <div className={cx('admin_online', `${data.loginStatus ? 'admin_state' : ''}`)} />
+                                <div className={cx('admin_online', `${data.loginStatus && 'admin_signin'}`)} />
                             </div>
                             <div className={cx('rating_admin_icon')}>
                                 <CommentOutlined className={cx('icon-chat')} />
