@@ -82,7 +82,8 @@ const getDataList = async (req) => {
   // const sql = `SELECT * FROM items WHERE itemsbrand=${typeBrands} LIMIT ${(page-1)*perPage}, ${perPage}`;
   const sql = `SELECT * FROM penDetail Where penStar${
     star !== 0 ? '=' + star : ''
-  } ORDER BY penId ASC LIMIT ${(page - 1) * perPage}, ${perPage}`;
+  }  ORDER BY created_at DESC, penId ASC LIMIT ${(page - 1) * perPage}, ${perPage}`; // ex: "LIMIT 5, 10" 跳过前 5 行并获取接下来的 10 行
+                                                                                     // ex: SELECT * FROM table ORDER BY aaa ASC, bbb DESC;
 
   const [r3] = await db.query(
     `SELECT COUNT(1) num FROM penDetail Where penStar${
@@ -139,9 +140,7 @@ router.get('/detail/:id', (req, res) => {
   // console.log(req.params.id);
   let id = req.params.id;
   // let sql = `SELECT * FROM items WHERE itemId=${id}`;
-  let sql =
-    'SELECT * FROM `items` AS `it` INNER JOIN `multiple_images` AS `mu` ON `it`.`itemId` = `mu`.`itemId` WHERE `it`.`itemId`=' +
-    id;
+  let sql = 'SELECT * FROM `items` AS `it` INNER JOIN `multiple_images` AS `mu` ON `it`.`itemId` = `mu`.`itemId` WHERE `it`.`itemId`=' + id;
   let output = {};
   db.query(sql).then((results) => {
     // if (error) throw error;
