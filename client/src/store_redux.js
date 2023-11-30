@@ -1,7 +1,4 @@
-// import { combineReducers, createStore } from 'redux';
-
-// configureStore 可以視為加強版的 createStore
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, createStore } from 'redux';
 
 const initialState = {
     user: 'ASUS William',
@@ -56,14 +53,8 @@ function todos(state = [], action) {
     }
 }
 
-const reducer = {
-    userReducer,
-    visibilityFilter,
-    todos
-};
+let reducer = combineReducers({ userReducer, visibilityFilter, todos });
 
-const store = configureStore({
-    reducer
-});
+const store = createStore(reducer);
 
 export default store;
