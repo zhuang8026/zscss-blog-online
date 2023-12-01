@@ -81,6 +81,7 @@ const Home = () => {
                     arrayChat.length > 0 &&
                     arrayChat.map((roomId, index) => {
                         let createRoom = {
+                            sid: adminData[0]?.sid,
                             roomId: roomId,
                             adminName: adminData[0]?.nickname,
                             adminImg: adminData[0]?.userimg

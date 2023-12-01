@@ -1,3 +1,6 @@
+// connect API request
+const axios = require('axios');
+
 // 引入
 const express = require('express'); // es5 // express => npm install --save express
 
@@ -88,7 +91,7 @@ const server = require('http').createServer(app, (req, res) => {
 const io = require('socket.io')(server, {
   cors: {
     origin: corsOptions,
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   },
 }); // 請參考 https://socket.io/docs/v3/handling-cors/
 
@@ -123,8 +126,14 @@ app.use('/products', require(__dirname + '/products.js'));
 // products_detail.js
 app.use('/products_detail', require(__dirname + '/products_detail.js'));
 
-// socket.js
-// app.use("/socket", require(__dirname + "/socket.js"));
+// user-chat_room
+// 引入 chat.js 並傳入 socket.io 實例
+const setupChatRoutes = require(__dirname + '/chat.js');
+const chatRoutes = setupChatRoutes(io);
+app.use('/chat', chatRoutes);
+// app.use('/chat', require(__dirname + '/chat.js'));
+// 引入 chat.js 並傳入 socket.io 實例
+
 
 // 404
 app.use((req, res) => {
@@ -152,6 +161,7 @@ io.on('connection', (socket) => {
   //   io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
   // });
 
+  // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (msg) => {
     io.sockets.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, msg);
   });
