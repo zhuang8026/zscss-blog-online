@@ -31,6 +31,8 @@ import ReduxHooks from './ReduxHooks';
 import ReduxHooksTodoList from './ReduxHooksTodoList';
 // EasyRedux
 import EasyRedux from './EasyRedux';
+// ButtonAnimate
+import ButtonAnimate from './ButtonAnimate';
 
 // css
 import './style_module.scss';
@@ -116,6 +118,11 @@ const Animate = ({ match }) => {
             title: 'Use Redux 8.1.2',
             path: 'easyRedux',
             component: EasyRedux
+        },
+        {
+            title: 'Button',
+            path: 'button',
+            component: ButtonAnimate
         }
     ];
 
